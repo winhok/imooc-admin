@@ -25,5 +25,31 @@ export default defineConfigWithVueTs(
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 
+  {
+    name: 'app/custom-rules',
+    languageOptions: {
+      globals: {
+        ElMessage: 'readonly',
+        ElMessageBox: 'readonly',
+        ElLoading: 'readonly'
+      }
+    },
+    rules: {
+      'vue/multi-word-component-names': [
+        'warn',
+        {
+          ignores: ['index']
+        }
+      ]
+    }
+  },
+
+  {
+    name: 'app/disable-multi-word-component-names-for-route-pages',
+    files: ['src/views/**/*.vue'],
+    rules: {
+      'vue/multi-word-component-names': 'off'
+    }
+  },
   skipFormatting
 )
