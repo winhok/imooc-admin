@@ -17,3 +17,4 @@ minimumReleaseAgeExclude:
   - '@commitlint/resolve-extends@21.1.0'
   - '@commitlint/rules@21.1.0'
   - '@commitlint/types@21.1.0'
+  - axios@1.18.1

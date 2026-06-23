@@ -51,5 +51,19 @@ export default defineConfigWithVueTs(
       'vue/multi-word-component-names': 'off'
     }
   },
+  {
+    name: 'app/type-aware-rules',
+    files: ['src/**/*.{ts,mts,tsx,vue}'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+        extraFileExtensions: ['.vue']
+      }
+    },
+    rules: {
+      '@typescript-eslint/no-deprecated': 'error'
+    }
+  },
   skipFormatting
 )

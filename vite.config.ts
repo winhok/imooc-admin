@@ -6,12 +6,17 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    createSvgIconsPlugin({
+      iconDirs: [fileURLToPath(new URL('./src/icons/svg', import.meta.url))],
+      symbolId: 'icon-[name]'
+    }),
     // importStyle: 'sass' 让按需引入的 Element Plus 组件加载 scss 源码，
     // 从而能被下方 additionalData 注入的主题变量覆盖。
     AutoImport({
@@ -24,6 +29,14 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.imooc-admin.lgdsunday.club/',
+        changeOrigin: true
+      }
     }
   },
   css: {
