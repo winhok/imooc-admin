@@ -1,0 +1,11 @@
+// Element Plus 主题定制（基于 dart-sass 的 @use/@forward 模块化方案）
+// 文档：https://element-plus.org/zh-CN/guide/theming
+// 只需覆盖用到的颜色，其余沿用 Element Plus 默认值。
+// 修改 'base' 的值即可让主题色全局生效。
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #27ba9b
+    )
+  )
+);
