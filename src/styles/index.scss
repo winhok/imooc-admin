@@ -1,3 +1,9 @@
+@use './variables.module.scss' as *;
+@use './mixin.scss' as *;
+@use './sidebar.scss';
+@use './transition.scss';
+@use './element/index.scss';
+
 html,
 body {
   height: 100%;

@@ -10,5 +10,13 @@
   },
   "rules": {
     "no-undef": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.cjs", "**/*.config.{js,ts,mjs,cjs}"],
+      "env": {
+        "node": true
+      }
+    }
+  ]
 }

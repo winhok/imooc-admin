@@ -18,3 +18,9 @@ minimumReleaseAgeExclude:
   - '@commitlint/rules@21.1.0'
   - '@commitlint/types@21.1.0'
   - axios@1.18.1
+  - eslint@10.6.0
+  - prettier@3.8.5 || 3.9.0 || 3.9.1
+  - '@vue/devtools-core@8.1.5'
+  - '@vue/devtools-kit@8.1.5'
+  - '@vue/devtools-shared@8.1.5'
+  - vite-plugin-vue-devtools@8.1.5

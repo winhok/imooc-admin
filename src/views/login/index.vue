@@ -25,9 +25,7 @@ async function onSubmit() {
   try {
     await form.validate()
     await login()
-  } catch {
-    // 校验失败或登录失败：提示已由表单校验 / 请求拦截器统一处理
-  }
+  } catch {}
 }
 </script>
 
@@ -61,11 +59,15 @@ async function onSubmit() {
         <el-input
           v-model="loginForm.password"
           placeholder="password"
+          name="password"
           :type="passwordType"
           @keyup.enter="onSubmit"
         />
-        <span class="show-pwd" @click="onChangePwdType">
-          <SvgIcon :icon="passwordType === 'password' ? 'eye' : 'eye-open'" />
+        <span class="show-pwd">
+          <SvgIcon
+            :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
+            @click="onChangePwdType"
+          />
         </span>
       </el-form-item>
 
@@ -112,11 +114,17 @@ $cursor: #fff;
       display: inline-block;
       height: 47px;
       width: 85%;
+      flex: none;
+
+      .el-input__wrapper {
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+      }
 
       input {
         background: transparent;
         border: 0;
-        /* 保留 -webkit-appearance 以兼容旧版 Safari */
         -webkit-appearance: none;
         appearance: none;
         border-radius: 0;

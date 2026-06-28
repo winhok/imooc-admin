@@ -45,10 +45,17 @@ export default defineConfigWithVueTs(
   },
 
   {
-    name: 'app/disable-multi-word-component-names-for-route-pages',
-    files: ['src/views/**/*.vue'],
+    name: 'app/disable-multi-word-component-names',
+    files: ['src/**/*.vue'],
     rules: {
       'vue/multi-word-component-names': 'off'
+    }
+  },
+  {
+    name: 'app/commonjs-config-files',
+    files: ['**/*.cjs'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off'
     }
   },
   {

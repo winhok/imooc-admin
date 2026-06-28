@@ -12,6 +12,8 @@
     // Extra safety for array and object lookups, but may have false positives.
     "noUncheckedIndexedAccess": true,
 
+    "rootDir": ".",
+
     // Path mapping for cleaner imports.
     "paths": {
       "@/*": ["./src/*"]

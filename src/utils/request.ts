@@ -3,31 +3,87 @@ import { ElMessage } from 'element-plus'
 import { LOGIN_PATH, TOKEN } from '@/constant'
 import { getItem } from '@/utils/storage'
 import router from '@/router'
+import { isCheckTimeout } from '@/utils/auth'
+
+const DEFAULT_ICODE = 'helloqianduanxunlianying'
+
+interface RequestError {
+  response?: {
+    status?: number
+    data?: {
+      code?: number | string
+      message?: string
+    }
+  }
+  message?: string
+  handled?: boolean
+}
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 5000
 })
 
-// 请求拦截器：注入 token
+let isLoggingOut = false
+
+async function logoutAndRedirectToLogin() {
+  if (isLoggingOut) return
+  isLoggingOut = true
+  try {
+    const { useUserStore } = await import('@/store')
+    useUserStore().logout()
+    await router.push({
+      path: LOGIN_PATH,
+      query: { redirect: router.currentRoute.value.fullPath }
+    })
+  } finally {
+    isLoggingOut = false
+  }
+}
+
+function isUnauthorizedCode(code: unknown) {
+  if (code === 401 || code === '401') return true
+  return typeof code === 'string' && code.startsWith('401')
+}
+
+function isTokenExpiredError(error: RequestError) {
+  return (
+    error.response?.status === 401 ||
+    isUnauthorizedCode(error.response?.data?.code)
+  )
+}
+
 service.interceptors.request.use(
-  (config) => {
+  async (config) => {
+    config.headers.set('icode', DEFAULT_ICODE)
+
     const token = getItem<string>(TOKEN)?.trim()
     if (token) {
-      config.headers.Authorization = token
+      if (isCheckTimeout()) {
+        await logoutAndRedirectToLogin()
+        return Promise.reject(
+          Object.assign(new Error('token 失效'), {
+            handled: true
+          })
+        )
+      }
+      config.headers.set('Authorization', `Bearer ${token}`)
     }
     return config
   },
   (error) => Promise.reject(error)
 )
 
-// 响应拦截器：解包后端统一结构 { success, message, data }
 service.interceptors.response.use(
   (response) => {
     const payload = response.data
-    // 非标准响应（空响应、二进制流等）直接透传
+
     if (!payload || typeof payload !== 'object' || !('success' in payload)) {
       return payload
+    }
+    if (!payload.success && isUnauthorizedCode(payload.code)) {
+      void logoutAndRedirectToLogin()
+      return Promise.reject(new Error(payload.message || '登录态已失效'))
     }
     if (payload.success) {
       return payload.data
@@ -36,26 +92,19 @@ service.interceptors.response.use(
     ElMessage.error(message)
     return Promise.reject(new Error(message))
   },
-  (error) => {
-    // 401：登录态失效，清除 token 并跳转登录页
-    if (error.response?.status === 401) {
-      // 动态引入 store，避免 request <-> store 的循环依赖
-      import('@/store').then(({ useUserStore }) => {
-        useUserStore().clearToken()
-        router.push(LOGIN_PATH)
-      })
+  (error: RequestError) => {
+    if (error.handled) {
+      return Promise.reject(error)
     }
-    // 优先展示后端返回的错误信息
+    if (isTokenExpiredError(error)) {
+      void logoutAndRedirectToLogin()
+    }
     const message = error.response?.data?.message || error.message || '服务异常'
     ElMessage.error(message)
     return Promise.reject(error)
   }
 )
 
-/**
- * 统一请求方法。响应拦截器已将后端响应解包为业务数据，
- * 因此这里做一次显式断言，把解包后的类型对外暴露为 Promise<T>。
- */
 const request = <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
   return service(config) as unknown as Promise<T>
 }
