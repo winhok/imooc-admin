@@ -3,7 +3,7 @@ import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 import { useAppStore } from '@/store'
-import variables from '@/styles/variables.module.scss'
+import TagsView from '@/components/TagsView/index.vue'
 
 const appStore = useAppStore()
 </script>
@@ -16,11 +16,12 @@ const appStore = useAppStore()
     <sidebar
       id="guide-sidebar"
       class="sidebar-container"
-      :style="{ backgroundColor: variables.menuBg }"
+      :style="{ backgroundColor: appStore.cssVar.menuBg }"
     />
     <div class="main-container">
       <div class="fixed-header">
         <navbar />
+        <tags-view id="guide-tags"></tags-view>
       </div>
       <app-main />
     </div>

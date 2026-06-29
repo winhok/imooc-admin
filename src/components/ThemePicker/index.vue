@@ -1,0 +1,76 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useThemeStore } from '@/store'
+import { generateNewStyle, writeNewStyle } from '@/utils/theme'
+
+defineProps({
+  modelValue: {
+    type: Boolean,
+    required: true
+  }
+})
+const emits = defineEmits(['update:modelValue'])
+
+const predefineColors = [
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585',
+  'rgba(255, 69, 0, 0.68)',
+  'rgb(255, 120, 0)',
+  'hsv(51, 100, 98)',
+  'hsva(120, 40, 94, 0.5)',
+  'hsl(181, 100%, 37%)',
+  'hsla(209, 100%, 56%, 0.73)',
+  '#c7158577'
+]
+
+const themeStore = useThemeStore()
+
+const mColor = ref(themeStore.mainColor)
+
+const closed = () => {
+  emits('update:modelValue', false)
+}
+
+const comfirm = async () => {
+  const newStyleText = await generateNewStyle(mColor.value)
+  writeNewStyle(newStyleText)
+  themeStore.setMainColor(mColor.value)
+  closed()
+}
+</script>
+
+<template>
+  <el-dialog
+    :title="$t('msg.theme.themeColorChange')"
+    :model-value="modelValue"
+    @close="closed"
+    width="22%"
+  >
+    <div class="center">
+      <p class="title">{{ $t('msg.theme.themeColorChange') }}</p>
+      <el-color-picker v-model="mColor" :predefine="predefineColors" />
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
+        <el-button type="primary" @click="comfirm">{{
+          $t('msg.universal.confirm')
+        }}</el-button>
+      </span>
+    </template>
+  </el-dialog>
+</template>
+
+<style lang="scss" scoped>
+.center {
+  text-align: center;
+  .title {
+    margin-bottom: 12px;
+  }
+}
+</style>

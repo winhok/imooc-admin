@@ -1,17 +1,30 @@
 <script setup lang="ts">
-import { shallowRef, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { shallowRef, useTemplateRef, computed } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { validatePassword } from './rules'
 import { useLogin } from './useLogin'
+import { watchSwitchLang } from '@/utils/i18n'
 
 const { loginForm, loading, login } = useLogin()
 
 const loginFormRef = useTemplateRef<FormInstance>('loginFormRef')
 
-const loginRules: FormRules = {
-  username: [{ required: true, trigger: 'blur', message: '用户名为必填项' }],
+const i18n = useI18n()
+const loginRules = computed<FormRules>(() => ({
+  username: [
+    {
+      required: true,
+      trigger: 'blur',
+      message: i18n.t('msg.login.usernameRule')
+    }
+  ],
   password: [{ required: true, trigger: 'blur', validator: validatePassword }]
-}
+}))
+
+watchSwitchLang(() => {
+  loginFormRef.value?.validate()
+})
 
 const passwordType = shallowRef<'password' | 'text'>('password')
 
@@ -38,7 +51,8 @@ async function onSubmit() {
       :rules="loginRules"
     >
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t('msg.login.title') }}</h3>
+        <LangSelect class="lang-select" effect="light"></LangSelect>
       </div>
 
       <el-form-item prop="username">
@@ -77,8 +91,9 @@ async function onSubmit() {
         style="width: 100%; margin-bottom: 30px"
         @click="onSubmit"
       >
-        登录
+        {{ $t('msg.login.loginBtn') }}
       </el-button>
+      <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
   </div>
 </template>

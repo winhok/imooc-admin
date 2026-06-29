@@ -1,6 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { HOME_PATH, LOGIN_PATH, NOT_FOUND_PATH } from '@/constant'
 
+declare module 'vue-router' {
+  interface RouteMeta {
+    title?: string
+    icon?: string
+  }
+}
+
 const privateRoutes = [
   {
     path: '/user',

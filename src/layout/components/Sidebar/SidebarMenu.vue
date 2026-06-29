@@ -25,10 +25,10 @@ const activeMenu = computed(() => {
 <template>
   <el-menu
     :default-active="activeMenu"
+    :collapse="!appStore.sidebarOpened"
     :background-color="appStore.cssVar.menuBg"
     :text-color="appStore.cssVar.menuText"
     :active-text-color="appStore.cssVar.menuActiveText"
-    :collapse="!appStore.sidebarOpened"
     :unique-opened="true"
     router
   >

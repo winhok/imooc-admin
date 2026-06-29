@@ -13,9 +13,18 @@ importers:
       axios:
         specifier: ^1.18.1
         version: 1.18.1
+      culori:
+        specifier: 4.0.2
+        version: 4.0.2
+      driver.js:
+        specifier: ^1.6.0
+        version: 1.6.0
       element-plus:
         specifier: ^2.14.2
         version: 2.14.2(vue@3.5.39(typescript@6.0.3))
+      fuse.js:
+        specifier: ^7.4.2
+        version: 7.4.2
       md5:
         specifier: ^2.3.0
         version: 2.3.0
@@ -25,6 +34,9 @@ importers:
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3))
+      screenfull:
+        specifier: ^6.0.2
+        version: 6.0.2
       vue:
         specifier: ^3.5.39
         version: 3.5.39(typescript@6.0.3)
@@ -44,6 +56,9 @@ importers:
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
+      '@types/culori':
+        specifier: 4.0.1
+        version: 4.0.1
       '@types/md5':
         specifier: ^2.3.6
         version: 2.3.6
@@ -99,11 +114,8 @@ importers:
         specifier: ^1.8.1
         version: 1.8.1
       prettier:
-        specifier: 3.9.1
-        version: 3.9.1
-      process:
-        specifier: ^0.11.10
-        version: 0.11.10
+        specifier: 3.9.3
+        version: 3.9.3
       sass-embedded:
         specifier: ^1.100.0
         version: 1.100.0
@@ -1413,6 +1425,12 @@ packages:
         integrity: sha512-RoBvJ2X0wuKlWFIjrwffGw1IqZHKQqzIchKaadZZfnNpsAYp2mM0h36JtPCjNDAHGgYez/15uMBpfGwchhiMgg==
       }
 
+  '@types/culori@4.0.1':
+    resolution:
+      {
+        integrity: sha512-43M51r/22CjhbOXyGT361GZ9vncSVQ39u62x5eJdBQFviI8zWp2X5jzqg7k4M6PVgDQAClpy2bUe2dtwEgEDVQ==
+      }
+
   '@types/esrecurse@4.3.1':
     resolution:
       {
@@ -2635,6 +2653,13 @@ packages:
         integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==
       }
 
+  culori@4.0.2:
+    resolution:
+      {
+        integrity: sha512-1+BhOB8ahCn4O0cep0Sh2l9KCOfOdY+BXJnKMHFFzDEouSr/el18QwXEMRlOj9UY5nCeA8UN3a/82rUWRBeyBw==
+      }
+    engines: { node: ^12.20.0 || ^14.13.1 || >=16.0.0 }
+
   cz-conventional-changelog@3.3.0:
     resolution:
       {
@@ -2882,6 +2907,12 @@ packages:
         integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
       }
     engines: { node: '>=8' }
+
+  driver.js@1.6.0:
+    resolution:
+      {
+        integrity: sha512-gryo9QS7AZhz8J0bmdf42dwaTzcd1BgSJLnaSM7cPJbu8bTW8wIEuiGDy4MoCvB4Sr8wA9g5o2G9EFNVYZGeVQ==
+      }
 
   dunder-proto@1.0.1:
     resolution:
@@ -3475,6 +3506,13 @@ packages:
       {
         integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
       }
+
+  fuse.js@7.4.2:
+    resolution:
+      {
+        integrity: sha512-LVbzjD4WA6UP5B1UnP8wuaXJiLnqMdM/E4fiJXTJ5haJ5b/MBNsK29h2fm6swEoQaVQjvYFWKLE2RanyZIoRVQ==
+      }
+    engines: { node: '>=10' }
 
   generator-function@2.0.1:
     resolution:
@@ -5444,20 +5482,13 @@ packages:
       }
     engines: { node: '>= 0.8.0' }
 
-  prettier@3.9.1:
+  prettier@3.9.3:
     resolution:
       {
-        integrity: sha512-ppiDo2CSwexck1eyZUwJHg/N3nf1+6IRCv7W/VJ5vaLnVCmB7+3CdRfMwoCHBBX6xTrREDTksZ4OZl5SSf4zXA==
+        integrity: sha512-HWmu+K+zvHNpaMfSnYeqdqrDbR16cuIXaPx8WoHaviQkDJh1/0BNtOZmHVQI5jc3wXv0H1yXc9wjvFdXh+n3hQ==
       }
     engines: { node: '>=14' }
     hasBin: true
-
-  process@0.11.10:
-    resolution:
-      {
-        integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
-      }
-    engines: { node: '>= 0.6.0' }
 
   proxy-from-env@2.1.0:
     resolution:
@@ -5915,6 +5946,13 @@ packages:
         integrity: sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==
       }
     engines: { node: '>=11.0.0' }
+
+  screenfull@6.0.2:
+    resolution:
+      {
+        integrity: sha512-AQdy8s4WhNvUZ6P8F6PB21tSPIYKniic+Ogx0AacBMjKP1GUHN2E9URxQHtCusiwxudnCKkdy4GrHXPPJSkCCw==
+      }
+    engines: { node: ^14.13.1 || >=16.0.0 }
 
   scule@1.3.0:
     resolution:
@@ -7858,6 +7896,8 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
+  '@types/culori@4.0.1': {}
+
   '@types/esrecurse@4.3.1': {}
 
   '@types/estree@1.0.9': {}
@@ -8670,6 +8710,8 @@ snapshots:
 
   csstype@3.2.3: {}
 
+  culori@4.0.2: {}
+
   cz-conventional-changelog@3.3.0(@types/node@26.0.1)(typescript@6.0.3):
     dependencies:
       chalk: 2.4.2
@@ -8826,6 +8868,8 @@ snapshots:
   dot-prop@5.3.0:
     dependencies:
       is-obj: 2.0.0
+
+  driver.js@1.6.0: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -9263,6 +9307,8 @@ snapshots:
       is-document.all: 1.0.0
 
   functions-have-names@1.2.3: {}
+
+  fuse.js@7.4.2: {}
 
   generator-function@2.0.1: {}
 
@@ -10351,9 +10397,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier@3.9.1: {}
-
-  process@0.11.10: {}
+  prettier@3.9.3: {}
 
   proxy-from-env@2.1.0: {}
 
@@ -10622,6 +10666,8 @@ snapshots:
     optional: true
 
   sax@1.6.0: {}
+
+  screenfull@6.0.2: {}
 
   scule@1.3.0: {}
 

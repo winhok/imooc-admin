@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useRoute, useRouter, type RouteLocationMatched } from 'vue-router'
 import { useAppStore } from '@/store'
+import { generateTitle } from '@/utils/i18n'
 
 const route = useRoute()
 const breadcrumbData = computed(() =>
@@ -24,10 +25,10 @@ const linkHoverColor = appStore.cssVar.menuBg
         :key="item.path"
       >
         <span v-if="index === breadcrumbData.length - 1" class="no-redirect">{{
-          item.meta.title
+          generateTitle(item.meta.title as string)
         }}</span>
         <a v-else class="redirect" @click.prevent="onLinkClick(item)">{{
-          item.meta.title
+          generateTitle(item.meta.title as string)
         }}</a>
       </el-breadcrumb-item>
     </transition-group>
