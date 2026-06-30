@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import { filterRouters } from '@/utils/route'
 import { useRouter } from 'vue-router'
 import {
@@ -78,6 +78,10 @@ watch(isShow, (val) => {
     document.body.removeEventListener('click', onClose)
   }
 })
+
+onUnmounted(() => {
+  document.body.removeEventListener('click', onClose)
+})
 </script>
 
 <template>
@@ -127,7 +131,7 @@ watch(isShow, (val) => {
     display: inline-block;
     vertical-align: middle;
 
-    ::v-deep .el-input__inner {
+    :deep(.el-input__inner) {
       border-radius: 0;
       border: 0;
       padding-left: 0;

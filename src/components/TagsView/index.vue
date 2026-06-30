@@ -4,7 +4,7 @@ import { Close } from '@element-plus/icons-vue'
 import { useRoute } from 'vue-router'
 import { useAppStore } from '@/store'
 import type { TagsViewItem } from '@/store'
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, onUnmounted } from 'vue'
 
 const route = useRoute()
 const appStore = useAppStore()
@@ -45,6 +45,10 @@ watch(visible, (val) => {
   } else {
     document.body.removeEventListener('click', closeMenu)
   }
+})
+
+onUnmounted(() => {
+  document.body.removeEventListener('click', closeMenu)
 })
 </script>
 

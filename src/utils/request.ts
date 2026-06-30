@@ -1,6 +1,6 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 import { ElMessage } from 'element-plus'
-import { LOGIN_PATH, TOKEN } from '@/constant'
+import { LANG, LOGIN_PATH, TOKEN } from '@/constant'
 import { getItem } from '@/utils/storage'
 import router from '@/router'
 import { isCheckTimeout } from '@/utils/auth'
@@ -69,6 +69,7 @@ service.interceptors.request.use(
       }
       config.headers.set('Authorization', `Bearer ${token}`)
     }
+    config.headers.set('Accept-Language', getItem<string>(LANG) || 'zh')
     return config
   },
   (error) => Promise.reject(error)

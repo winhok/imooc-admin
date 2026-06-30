@@ -4,11 +4,19 @@ import { useAppStore } from '@/store/modules/app'
 import en from 'element-plus/es/locale/lang/en'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { generateNewStyle, writeNewStyle } from '@/utils/theme'
-import { useThemeStore } from '@/store'
+import { useThemeStore, useUserStore } from '@/store'
 import { DEFAULT_COLOR } from '@/constant'
+import { watchSwitchLang } from '@/utils/i18n'
 
 const appStore = useAppStore()
 const themeStore = useThemeStore()
+const userStore = useUserStore()
+
+watchSwitchLang(() => {
+  if (userStore.hasToken) {
+    userStore.getUserInfo().catch(() => {})
+  }
+})
 
 if (themeStore.mainColor !== DEFAULT_COLOR) {
   generateNewStyle(themeStore.mainColor)
