@@ -30,7 +30,8 @@ export default {
     articleRanking: '文章排名',
     articleCreate: '创建文章',
     articleDetail: '文章详情',
-    articleEditor: '文章编辑'
+    articleEditor: '文章编辑',
+    chart: '数据可视化'
   },
   toast: {
     switchLangSuccess: '切换语言成功'
@@ -180,5 +181,34 @@ export default {
     createSuccess: '文章创建成功',
     editorSuccess: '文章修改成功',
     sortSuccess: '文章排名修改成功'
+  },
+  chart: {
+    trendDataTitle: '本月累计收益',
+    trendDataTodayAdded: '今日新增收益',
+    trendDataTodayExpend: '今日新增支出',
+    trendDataTodayBalance: '今日结余',
+    unit: '万元',
+    monthIncome: '月累计收益',
+    dayIncome: '日收益曲线',
+    income: '收益',
+    expend: '支出',
+    balance: '结余',
+    pieChartTitle: '大区营销图示',
+    cloudChartTitle: '关键云词',
+    bmapChartTitle: '营收业绩图示',
+    revenue: '营收',
+    revenueTop5: '营收 TOP 5',
+    bmapMissingAk: '请配置 VITE_BAIDU_MAP_AK 后查看地图',
+    bmapLoadFailed: '百度地图加载失败，请检查 AK 与 Referer 白名单',
+    todayReceivable: '今日应收',
+    todayBalance: '今日结余',
+    sheetIndex: '序号',
+    sheetProvince: '省份',
+    sheetCity: '城市',
+    sheetCoverage: '覆盖率',
+    sheetReceivable: '应收',
+    sheetActual: '实收',
+    sheetBalance: '结余',
+    noData: '暂无数据'
   }
 }

@@ -6,6 +6,7 @@ interface ImportMetaEnv extends Record<string, unknown> {
   readonly SSR: boolean
   readonly VITE_APP_BASE_API: string
   readonly VITE_APP_ENV: 'development' | 'production'
+  readonly VITE_BAIDU_MAP_AK?: string
 }
 
 interface ImportMeta {
@@ -21,6 +22,11 @@ declare module '*.module.scss' {
 declare module '*.scss' {}
 
 declare module '*.css' {}
+
+declare module '*.svg' {
+  const src: string
+  export default src
+}
 
 declare module 'virtual:svg-icons-register' {
   const register: unknown

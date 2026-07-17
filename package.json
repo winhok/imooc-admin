@@ -17,13 +17,17 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@antv/g2": "5.4.8",
+    "@antv/s2": "2.7.2",
     "@element-plus/icons-vue": "^2.3.2",
     "@toast-ui/editor": "3.2.2",
     "axios": "^1.18.1",
+    "countup.js": "2.10.1",
     "culori": "4.0.2",
     "dayjs": "1.11.21",
     "dompurify": "^3.4.12",
     "driver.js": "^1.7.0",
+    "echarts": "6.1.0",
     "element-plus": "^2.14.3",
     "file-saver": "2.0.5",
     "fuse.js": "^7.5.0",

@@ -30,7 +30,8 @@ export default {
     articleRanking: 'ArticleRanking',
     articleCreate: 'ArticleCreate',
     articleDetail: 'ArticleDetail',
-    articleEditor: 'ArticleEditor'
+    articleEditor: 'ArticleEditor',
+    chart: 'Data Visualization'
   },
   toast: {
     switchLangSuccess: 'Switch Language Success'
@@ -181,5 +182,35 @@ export default {
     createSuccess: 'The article was created successfully',
     editorSuccess: 'Article modified successfully',
     sortSuccess: 'Article ranking modified successfully'
+  },
+  chart: {
+    trendDataTitle: 'Monthly Cumulative Revenue',
+    trendDataTodayAdded: 'Revenue Added Today',
+    trendDataTodayExpend: 'Expenses Added Today',
+    trendDataTodayBalance: 'Today Balance',
+    unit: '10K CNY',
+    monthIncome: 'Monthly Revenue',
+    dayIncome: 'Daily Revenue',
+    income: 'Income',
+    expend: 'Expense',
+    balance: 'Balance',
+    pieChartTitle: 'Regional Marketing',
+    cloudChartTitle: 'Keyword Cloud',
+    bmapChartTitle: 'Revenue Performance',
+    revenue: 'Revenue',
+    revenueTop5: 'Revenue TOP 5',
+    bmapMissingAk: 'Configure VITE_BAIDU_MAP_AK to display the map',
+    bmapLoadFailed:
+      'Baidu Map failed to load. Check the AK and Referer allowlist',
+    todayReceivable: 'Receivable Today',
+    todayBalance: 'Balance Today',
+    sheetIndex: 'No.',
+    sheetProvince: 'Province',
+    sheetCity: 'City',
+    sheetCoverage: 'Coverage',
+    sheetReceivable: 'Receivable',
+    sheetActual: 'Actual',
+    sheetBalance: 'Balance',
+    noData: 'No data'
   }
 }

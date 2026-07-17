@@ -46,6 +46,15 @@ export const publicRoutes: RouteRecordRaw[] = [
         }
       },
       {
+        path: '/chart',
+        name: 'chart',
+        component: () => import('@/views/chart/index.vue'),
+        meta: {
+          title: 'chart',
+          icon: 'chart'
+        }
+      },
+      {
         path: '/404',
         name: '404',
         component: () => import('@/views/error-page/404.vue')
