@@ -22,6 +22,7 @@ const articleRankingRouter: RouteRecordRaw = {
       path: '/article/:id',
       name: 'articleDetail',
       component: () => import('@/views/article-detail/index.vue'),
+      props: true,
       meta: {
         title: 'articleDetail',
         activeMenu: '/article/ranking'
