@@ -1,5 +1,5 @@
 import router from './router'
-import { pinia, useUserStore } from '@/stores'
+import { pinia, usePermissionStore, useUserStore } from '@/stores'
 import {
   HOME_PATH,
   LOGIN_PATH,
@@ -11,6 +11,7 @@ const whiteList = [LOGIN_PATH, NOT_FOUND_PATH, NO_PERMISSION_PATH]
 
 router.beforeEach(async (to) => {
   const userStore = useUserStore(pinia)
+  const permissionStore = usePermissionStore(pinia)
 
   if (userStore.hasToken) {
     if (to.path === LOGIN_PATH) {
@@ -19,7 +20,12 @@ router.beforeEach(async (to) => {
 
     if (!userStore.hasUserInfo) {
       try {
-        await userStore.getUserInfo()
+        const userInfo = await userStore.getUserInfo()
+        const permissionRoutes = permissionStore.filterRoutes(
+          userInfo.permission?.menus ?? []
+        )
+        permissionRoutes.forEach((route) => router.addRoute(route))
+        return to.fullPath
       } catch {
         userStore.logout()
         return { path: LOGIN_PATH, query: { redirect: to.fullPath } }

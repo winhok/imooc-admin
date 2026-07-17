@@ -10,6 +10,8 @@ import { getItem, removeItem, setItem } from '@/utils/storage'
 import md5 from 'md5'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed, shallowRef } from 'vue'
+import { resetRouter } from '@/router'
+import { usePermissionStore } from './permission'
 
 export const useUserStore = defineStore('user', () => {
   const token = shallowRef(getItem<string>(TOKEN) || '')
@@ -38,6 +40,8 @@ export const useUserStore = defineStore('user', () => {
   }
 
   function logout() {
+    resetRouter()
+    usePermissionStore().resetRoutes()
     clearToken()
     clearUserInfo()
   }

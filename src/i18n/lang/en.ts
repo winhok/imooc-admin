@@ -151,7 +151,9 @@ export default {
     dialogTitle: 'New role',
     dialogRole: 'Role Name',
     dialogDesc: 'Role description',
-    updateRoleSuccess: 'User role updated successfully'
+    updateRoleSuccess: 'User role updated successfully',
+    permissionDialogTitle: 'Assign permissions',
+    updatePermissionSuccess: 'Role permissions updated successfully'
   },
   permission: {
     name: 'Authority name',

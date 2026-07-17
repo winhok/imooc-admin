@@ -1,5 +1,14 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  type RouteRecordRaw
+} from 'vue-router'
 import { HOME_PATH, LOGIN_PATH, NOT_FOUND_PATH } from '@/constant'
+import articleCreateRouter from './modules/article-create'
+import articleRankingRouter from './modules/article-ranking'
+import permissionListRouter from './modules/permission-list'
+import roleListRouter from './modules/role-list'
+import userManageRouter from './modules/user-manage'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -9,62 +18,15 @@ declare module 'vue-router' {
   }
 }
 
-const privateRoutes = [
-  {
-    path: '/user',
-    component: () => import('@/layout/index.vue'),
-    redirect: '/user/manage',
-    meta: {
-      title: 'user',
-      icon: 'personnel'
-    },
-    children: [
-      {
-        path: '/user/manage',
-        component: () => import('@/views/user-manage/index.vue'),
-        meta: {
-          title: 'userManage',
-          icon: 'personnel-manage'
-        }
-      },
-      {
-        path: '/user/role',
-        component: () => import('@/views/role-list/index.vue'),
-        meta: {
-          title: 'roleList',
-          icon: 'role'
-        }
-      },
-      {
-        path: '/user/permission',
-        component: () => import('@/views/permission-list/index.vue'),
-        meta: {
-          title: 'permissionList',
-          icon: 'permission'
-        }
-      },
-      {
-        path: '/user/info/:id',
-        component: () => import('@/views/user-info/index.vue'),
-        props: true,
-        meta: {
-          title: 'userInfo',
-          activeMenu: '/user/manage'
-        }
-      },
-      {
-        path: '/user/import',
-        component: () => import('@/views/import/index.vue'),
-        meta: {
-          title: 'excelImport',
-          activeMenu: '/user/manage'
-        }
-      }
-    ]
-  }
+export const asyncRoutes: RouteRecordRaw[] = [
+  roleListRouter,
+  userManageRouter,
+  permissionListRouter,
+  articleCreateRouter,
+  articleRankingRouter
 ]
 
-const publicRoutes = [
+export const publicRoutes: RouteRecordRaw[] = [
   {
     path: LOGIN_PATH,
     component: () => import('@/views/login/index.vue')
@@ -94,16 +56,26 @@ const publicRoutes = [
         component: () => import('@/views/error-page/401.vue')
       }
     ]
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: NOT_FOUND_PATH
   }
 ]
 
+export const notFoundRoute: RouteRecordRaw = {
+  path: '/:pathMatch(.*)*',
+  name: 'dynamicNotFound',
+  redirect: NOT_FOUND_PATH
+}
+
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: [...publicRoutes, ...privateRoutes]
+  routes: publicRoutes
 })
+
+export function resetRouter() {
+  for (const route of [...asyncRoutes, notFoundRoute]) {
+    if (route.name && router.hasRoute(route.name)) {
+      router.removeRoute(route.name)
+    }
+  }
+}
 
 export default router

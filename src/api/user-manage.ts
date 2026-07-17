@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 
 export interface UserRole {
-  id?: number | string
+  id?: string
   title: string
+  describe?: string
 }
 
 export interface UserManageItem {
@@ -79,5 +80,19 @@ export const deleteUser = (id: string) => {
 export const userDetail = (id: string) => {
   return request<UserDetail>({
     url: `/user-manage/detail/${id}`
+  })
+}
+
+export const getUserRoles = (id: string) => {
+  return request<{ role: UserRole[] }>({
+    url: `/user-manage/role/${id}`
+  })
+}
+
+export const updateUserRoles = (id: string, roles: UserRole[]) => {
+  return request({
+    url: `/user-manage/update-role/${id}`,
+    method: 'POST',
+    data: { roles }
   })
 }

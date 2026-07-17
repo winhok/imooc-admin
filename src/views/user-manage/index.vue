@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onActivated, shallowRef } from 'vue'
+import { onActivated, shallowRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -18,6 +18,7 @@ import {
 import { dateFormat } from '@/filters'
 import { watchSwitchLang } from '@/utils/i18n'
 import ExportToExcel from './components/Export2Excel.vue'
+import RolesDialog from './components/RolesDialog.vue'
 
 const router = useRouter()
 const i18n = useI18n()
@@ -28,6 +29,8 @@ const page = shallowRef(1)
 const size = shallowRef(2)
 const tableLoading = shallowRef(false)
 const exportToExcelVisible = shallowRef(false)
+const roleDialogVisible = shallowRef(false)
+const selectedUserId = shallowRef('')
 
 async function getListData() {
   tableLoading.value = true
@@ -71,6 +74,16 @@ function onShowClick(id: string) {
   void router.push(`/user/info/${id}`)
 }
 
+function onShowRoleClick(row: unknown) {
+  const user = row as UserManageItem
+  selectedUserId.value = user._id
+  roleDialogVisible.value = true
+}
+
+watch(roleDialogVisible, (visible) => {
+  if (!visible) selectedUserId.value = ''
+})
+
 function onRemoveClick(row: unknown) {
   const user = row as UserManageItem
 
@@ -95,7 +108,12 @@ function onRemoveClick(row: unknown) {
   <div class="user-manage-container">
     <el-card class="header">
       <div>
-        <el-button type="primary" :icon="Upload" @click="onImportExcelClick">
+        <el-button
+          v-permission="['importUser']"
+          type="primary"
+          :icon="Upload"
+          @click="onImportExcelClick"
+        >
           {{ $t('msg.excel.importExcel') }}
         </el-button>
         <el-button type="success" :icon="Download" @click="onToExcelClick">
@@ -158,10 +176,17 @@ function onRemoveClick(row: unknown) {
             >
               {{ $t('msg.excel.show') }}
             </el-button>
-            <el-button type="info" size="small" :icon="Setting">
+            <el-button
+              v-permission="['distributeRole']"
+              type="info"
+              size="small"
+              :icon="Setting"
+              @click="onShowRoleClick(row)"
+            >
               {{ $t('msg.excel.showRole') }}
             </el-button>
             <el-button
+              v-permission="['removeUser']"
               type="danger"
               size="small"
               :icon="Delete"
@@ -186,6 +211,11 @@ function onRemoveClick(row: unknown) {
     </el-card>
 
     <ExportToExcel v-model="exportToExcelVisible" />
+    <RolesDialog
+      v-model="roleDialogVisible"
+      :user-id="selectedUserId"
+      @roles-updated="getListData"
+    />
   </div>
 </template>
 

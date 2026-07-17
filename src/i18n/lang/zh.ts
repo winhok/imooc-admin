@@ -150,7 +150,9 @@ export default {
     dialogTitle: '新增角色',
     dialogRole: '角色名称',
     dialogDesc: '角色描述',
-    updateRoleSuccess: '用户角色更新成功'
+    updateRoleSuccess: '用户角色更新成功',
+    permissionDialogTitle: '分配权限',
+    updatePermissionSuccess: '角色权限更新成功'
   },
   permission: {
     name: '权限名称',

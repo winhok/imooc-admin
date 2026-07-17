@@ -30,7 +30,7 @@ const appStore = useAppStore()
 
 <style lang="scss" scoped>
 @use '@/styles/mixin.scss' as *;
-@use '@/styles/variables.module.scss' as *;
+@use '@/styles/variables.scss' as *;
 
 .app-wrapper {
   @include clearfix;

@@ -11,6 +11,10 @@ export interface LoginResult {
 
 export interface UserInfo {
   avatar?: string
+  permission?: {
+    menus?: string[]
+    points?: string[]
+  }
   [key: string]: unknown
 }
 

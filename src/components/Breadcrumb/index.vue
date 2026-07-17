@@ -49,7 +49,7 @@ const linkHoverColor = appStore.cssVar.menuBg
     color: v-bind(linkHoverColor);
   }
 
-  ::v-deep .no-redirect {
+  :deep(.no-redirect) {
     color: #97a8be;
     cursor: text;
   }
