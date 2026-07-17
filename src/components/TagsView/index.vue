@@ -2,8 +2,7 @@
 import ContextMenu from '@/components/TagsView/ContextMenu.vue'
 import { Close } from '@element-plus/icons-vue'
 import { useRoute } from 'vue-router'
-import { useAppStore } from '@/store'
-import type { TagsViewItem } from '@/store'
+import { useAppStore, type TagsViewItem } from '@/stores'
 import { ref, reactive, watch, onUnmounted } from 'vue'
 
 const route = useRoute()

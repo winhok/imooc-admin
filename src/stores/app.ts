@@ -1,4 +1,5 @@
 import { LANG, TAGS_VIEW } from '@/constant'
+import scssVariables from '@/styles/variables.module.scss'
 import { getItem, setItem } from '@/utils/storage'
 import { generateColors } from '@/utils/theme'
 import { acceptHMRUpdate, defineStore } from 'pinia'
@@ -27,7 +28,7 @@ export const useAppStore = defineStore('app', () => {
     Array.isArray(cachedTagsViewList) ? cachedTagsViewList : []
   )
   const cssVar = computed(() => ({
-    ...themeStore.variables,
+    ...(scssVariables as Record<string, string>),
     ...generateColors(themeStore.mainColor)
   }))
 

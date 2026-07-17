@@ -22,7 +22,6 @@
     overflow: hidden;
     transition: width #{$sideBarDuration};
 
-    // 重置 element-plus 的css
     .horizontal-collapse-transition {
       transition:
         0s width ease-in-out,
@@ -167,7 +166,6 @@
     }
   }
 
-  // 菜单项过长时
   > .el-menu--popup {
     max-height: 100vh;
     overflow-y: auto;

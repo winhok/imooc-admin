@@ -5,6 +5,7 @@ declare module 'vue-router' {
   interface RouteMeta {
     title?: string
     icon?: string
+    activeMenu?: string
   }
 }
 
@@ -45,15 +46,18 @@ const privateRoutes = [
       {
         path: '/user/info/:id',
         component: () => import('@/views/user-info/index.vue'),
+        props: true,
         meta: {
-          title: 'userInfo'
+          title: 'userInfo',
+          activeMenu: '/user/manage'
         }
       },
       {
         path: '/user/import',
         component: () => import('@/views/import/index.vue'),
         meta: {
-          title: 'excelImport'
+          title: 'excelImport',
+          activeMenu: '/user/manage'
         }
       }
     ]

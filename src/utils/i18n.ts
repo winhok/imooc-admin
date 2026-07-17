@@ -1,5 +1,5 @@
 import i18n from '@/i18n'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/stores'
 import { ref, watch, type Ref } from 'vue'
 
 export function generateTitle(title: string) {

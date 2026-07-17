@@ -2,7 +2,7 @@
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/stores'
 import TagsView from '@/components/TagsView/index.vue'
 
 const appStore = useAppStore()

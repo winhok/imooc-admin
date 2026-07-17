@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/stores'
 import { filterRouters, generateMenus } from '@/utils/route'
 import SidebarItem from './SidebarItem.vue'
 

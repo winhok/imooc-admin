@@ -30,8 +30,8 @@ async function logoutAndRedirectToLogin() {
   if (isLoggingOut) return
   isLoggingOut = true
   try {
-    const { useUserStore } = await import('@/store')
-    useUserStore().logout()
+    const { pinia, useUserStore } = await import('@/stores')
+    useUserStore(pinia).logout()
     await router.push({
       path: LOGIN_PATH,
       query: { redirect: router.currentRoute.value.fullPath }

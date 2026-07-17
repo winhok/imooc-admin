@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
-import { useAppStore } from '@/store/modules/app'
+import { useAppStore } from '@/stores'
 
 defineProps({
   effect: {

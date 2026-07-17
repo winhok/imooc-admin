@@ -3,7 +3,7 @@ import { watch } from 'vue'
 import { isTags } from '@/utils/tags'
 import { generateTitle, watchSwitchLang } from '@/utils/i18n'
 import { useRoute } from 'vue-router'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/stores'
 
 const route = useRoute()
 

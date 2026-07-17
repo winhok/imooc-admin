@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter, type RouteLocationMatched } from 'vue-router'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/stores'
 import { generateTitle } from '@/utils/i18n'
 
 const route = useRoute()

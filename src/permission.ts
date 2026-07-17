@@ -1,5 +1,5 @@
 import router from './router'
-import { useUserStore } from './store'
+import { pinia, useUserStore } from '@/stores'
 import {
   HOME_PATH,
   LOGIN_PATH,
@@ -10,7 +10,7 @@ import {
 const whiteList = [LOGIN_PATH, NOT_FOUND_PATH, NO_PERMISSION_PATH]
 
 router.beforeEach(async (to) => {
-  const userStore = useUserStore()
+  const userStore = useUserStore(pinia)
 
   if (userStore.hasToken) {
     if (to.path === LOGIN_PATH) {

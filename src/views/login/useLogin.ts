@@ -1,6 +1,6 @@
 import type { LoginParams } from '@/api/sys'
 import { HOME_PATH } from '@/constant'
-import { useUserStore } from '@/store'
+import { useUserStore } from '@/stores'
 import { reactive, readonly, shallowRef } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 

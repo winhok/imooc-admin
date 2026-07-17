@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PanThumb from '@/components/PanThumb/index.vue'
-import { useUserStore } from '@/store'
+import { useUserStore } from '@/stores'
 import type { FeatureItem } from '@/api/user'
 
 const userStore = useUserStore()

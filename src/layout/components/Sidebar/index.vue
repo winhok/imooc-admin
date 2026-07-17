@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SidebarMenu from './SidebarMenu.vue'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/stores'
 const appStore = useAppStore()
 const logoHeight = 44
 </script>

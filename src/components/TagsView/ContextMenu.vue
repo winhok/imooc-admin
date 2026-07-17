@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/stores'
 
 const props = defineProps({
   index: {

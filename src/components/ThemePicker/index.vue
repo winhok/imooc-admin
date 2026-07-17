@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useThemeStore } from '@/store'
+import { useThemeStore } from '@/stores'
 import { generateNewStyle, writeNewStyle } from '@/utils/theme'
 
 defineProps({

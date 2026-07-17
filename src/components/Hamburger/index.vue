@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/stores'
 
 const appStore = useAppStore()
 const toggleClick = () => {

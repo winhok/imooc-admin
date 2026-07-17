@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useAppStore } from '@/store/modules/app'
 import en from 'element-plus/es/locale/lang/en'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { generateNewStyle, writeNewStyle } from '@/utils/theme'
-import { useThemeStore, useUserStore } from '@/store'
+import { useAppStore, useThemeStore, useUserStore } from '@/stores'
 import { DEFAULT_COLOR } from '@/constant'
 import { watchSwitchLang } from '@/utils/i18n'
 

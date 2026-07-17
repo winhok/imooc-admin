@@ -1,5 +1,5 @@
 import { createI18n } from 'vue-i18n'
-import pinia, { useAppStore } from '@/store'
+import { pinia, useAppStore } from '@/stores'
 import mZhLocale from './lang/zh'
 import mEnLocale from './lang/en'
 
