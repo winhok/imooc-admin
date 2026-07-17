@@ -1,5 +1,6 @@
 allowBuilds:
   '@parcel/watcher': false
+  core-js-pure: true
 minimumReleaseAgeExclude:
   - eslint-plugin-oxlint@1.71.0 || 1.72.0
   - vite@8.1.0 || 8.1.5

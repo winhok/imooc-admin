@@ -22,6 +22,7 @@ const articleCreateRouter: RouteRecordRaw = {
       path: '/article/editor/:id',
       name: 'articleEditor',
       component: () => import('@/views/article-create/index.vue'),
+      props: true,
       meta: {
         title: 'articleEditor',
         activeMenu: '/article/create'

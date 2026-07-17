@@ -28,6 +28,15 @@ export interface ArticleSortPayload {
   finalRanking: number
 }
 
+export interface ArticleCreatePayload {
+  title: string
+  content: string
+}
+
+export interface ArticleEditPayload extends ArticleCreatePayload {
+  id: string
+}
+
 export const getArticleList = (params: ArticleListParams) => {
   return request<ArticleListResponse>({
     url: '/article/list',
@@ -52,5 +61,21 @@ export const deleteArticle = (articleId: string) => {
 export const getArticleDetail = (articleId: string) => {
   return request<ArticleDetail>({
     url: `/article/${articleId}`
+  })
+}
+
+export const createArticle = (data: ArticleCreatePayload) => {
+  return request({
+    url: '/article/create',
+    method: 'POST',
+    data
+  })
+}
+
+export const editArticle = (data: ArticleEditPayload) => {
+  return request({
+    url: '/article/edit',
+    method: 'POST',
+    data
   })
 }
