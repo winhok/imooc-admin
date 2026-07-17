@@ -1,5 +1,3 @@
-import axios from 'axios'
-import { version as elementPlusVersion } from 'element-plus'
 import { formatHex, useMode, modeRgb } from 'culori/fn'
 
 const toRgb = useMode(modeRgb)
@@ -19,7 +17,8 @@ const TINT_RATIO: Record<string, number> = {
   menuHover: 0.9
 }
 const SHADE_RATIO: Record<string, number> = {
-  'shade-1': 0.1
+  'shade-1': 0.1,
+  'dark-2': 0.2
 }
 
 const channel = (v: number) => Math.round(v * 255)
@@ -38,69 +37,47 @@ const mixColor = (baseHex: string, targetHex: string, ratio: number) => {
   })
 }
 
-let styleEl: HTMLStyleElement | null = null
-export const writeNewStyle = (elNewStyle: string) => {
-  if (!styleEl) {
-    styleEl = document.createElement('style')
-    document.head.appendChild(styleEl)
-  }
-  styleEl.innerText = elNewStyle
-}
-
-export const generateNewStyle = async (primaryColor: string) => {
-  const colors = generateColors(primaryColor)
-  let cssText = await getOriginalStyle()
-
-  Object.entries(colors).forEach(([key, value]) => {
-    cssText = cssText.replace(new RegExp('(:|\\s+)' + key, 'g'), '$1' + value)
-  })
-
-  return cssText
-}
-
 export const generateColors = (primary: string): Record<string, string> => {
-  if (!primary) return {}
+  const primaryRgb = toRgb(primary)
+  if (!primaryRgb) return {}
+
+  const normalizedPrimary = formatHex(primaryRgb)
   const colors: Record<string, string> = {
-    primary,
-    menuBg: primary
+    primary: normalizedPrimary,
+    menuBg: normalizedPrimary
   }
   Object.entries(TINT_RATIO).forEach(([key, ratio]) => {
-    colors[key] = mixColor(primary, '#ffffff', ratio)
+    colors[key] = mixColor(normalizedPrimary, '#ffffff', ratio)
   })
   Object.entries(SHADE_RATIO).forEach(([key, ratio]) => {
-    colors[key] = mixColor(primary, '#000000', ratio)
+    colors[key] = mixColor(normalizedPrimary, '#000000', ratio)
   })
   return colors
 }
 
-let originalStyleCache: Promise<string> | null = null
-const getOriginalStyle = async () => {
-  if (!originalStyleCache) {
-    originalStyleCache = (async () => {
-      const url = `https://unpkg.com/element-plus@${elementPlusVersion}/dist/index.css`
-      const { data } = await axios(url)
-      return getStyleTemplate(data)
-    })()
-  }
-  return originalStyleCache
-}
+export function applyThemeColor(primary: string) {
+  const colors = generateColors(primary)
+  const primaryColor = colors.primary
+  if (!primaryColor) return
 
-const getStyleTemplate = (data: string): string => {
-  const colorMap: Record<string, string> = {
-    '#3a8ee6': 'shade-1',
-    '#409eff': 'primary',
-    '#53a8ff': 'light-1',
-    '#66b1ff': 'light-2',
-    '#79bbff': 'light-3',
-    '#8cc5ff': 'light-4',
-    '#a0cfff': 'light-5',
-    '#b3d8ff': 'light-6',
-    '#c6e2ff': 'light-7',
-    '#d9ecff': 'light-8',
-    '#ecf5ff': 'light-9'
+  const primaryRgb = toRgb(primaryColor)
+  if (!primaryRgb) return
+
+  const rootStyle = document.documentElement.style
+  rootStyle.setProperty('--el-color-primary', primaryColor)
+  rootStyle.setProperty(
+    '--el-color-primary-rgb',
+    [primaryRgb.r, primaryRgb.g, primaryRgb.b].map(channel).join(', ')
+  )
+
+  for (let step = 1; step <= 9; step += 1) {
+    const lightColor = colors[`light-${step}`]
+    if (lightColor) {
+      rootStyle.setProperty(`--el-color-primary-light-${step}`, lightColor)
+    }
   }
-  Object.entries(colorMap).forEach(([key, value]) => {
-    data = data.replace(new RegExp(key, 'ig'), value)
-  })
-  return data
+  const darkColor = colors['dark-2']
+  if (darkColor) {
+    rootStyle.setProperty('--el-color-primary-dark-2', darkColor)
+  }
 }

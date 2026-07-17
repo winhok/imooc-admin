@@ -42,7 +42,7 @@ export const publicRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/profile/index.vue'),
         meta: {
           title: 'profile',
-          icon: 'el-icon-user'
+          icon: 'personnel'
         }
       },
       {

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { User } from '@element-plus/icons-vue'
 import { generateTitle } from '@/utils/i18n'
 
 defineProps({
@@ -15,9 +14,6 @@ defineProps({
 </script>
 
 <template>
-  <el-icon v-if="icon === 'el-icon-user'"><User /></el-icon>
-  <svg-icon v-else :icon="icon" />
+  <svg-icon :icon="icon" />
   <span>{{ generateTitle(title) }}</span>
 </template>
-
-<style lang="scss" scoped></style>

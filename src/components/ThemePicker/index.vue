@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { shallowRef } from 'vue'
 import { useThemeStore } from '@/stores'
-import { generateNewStyle, writeNewStyle } from '@/utils/theme'
 
-defineProps({
-  modelValue: {
-    type: Boolean,
-    required: true
-  }
-})
-const emits = defineEmits(['update:modelValue'])
+const visible = defineModel<boolean>({ required: true })
 
 const predefineColors = [
   '#ff4500',
@@ -30,35 +23,32 @@ const predefineColors = [
 
 const themeStore = useThemeStore()
 
-const mColor = ref(themeStore.mainColor)
+const selectedColor = shallowRef(themeStore.mainColor)
 
-const closed = () => {
-  emits('update:modelValue', false)
+function close() {
+  visible.value = false
 }
 
-const comfirm = async () => {
-  const newStyleText = await generateNewStyle(mColor.value)
-  writeNewStyle(newStyleText)
-  themeStore.setMainColor(mColor.value)
-  closed()
+function confirm() {
+  themeStore.setMainColor(selectedColor.value)
+  close()
 }
 </script>
 
 <template>
   <el-dialog
     :title="$t('msg.theme.themeColorChange')"
-    :model-value="modelValue"
-    @close="closed"
-    width="22%"
+    v-model="visible"
+    width="min(420px, 90vw)"
   >
     <div class="center">
       <p class="title">{{ $t('msg.theme.themeColorChange') }}</p>
-      <el-color-picker v-model="mColor" :predefine="predefineColors" />
+      <el-color-picker v-model="selectedColor" :predefine="predefineColors" />
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
-        <el-button type="primary" @click="comfirm">{{
+        <el-button @click="close">{{ $t('msg.universal.cancel') }}</el-button>
+        <el-button type="primary" @click="confirm">{{
           $t('msg.universal.confirm')
         }}</el-button>
       </span>
