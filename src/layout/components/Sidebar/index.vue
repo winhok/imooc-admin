@@ -3,15 +3,13 @@ import SidebarMenu from './SidebarMenu.vue'
 import { useAppStore } from '@/stores'
 const appStore = useAppStore()
 const logoHeight = 44
+const imoocLogo = new URL('../../../assets/imooc-logo.png', import.meta.url)
+  .href
 </script>
 <template>
   <div class="">
     <div class="logo-container">
-      <el-avatar
-        :size="logoHeight"
-        shape="square"
-        src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
-      />
+      <el-avatar :size="logoHeight" shape="square" :src="imoocLogo" />
       <h1 class="logo-title" v-if="appStore.sidebarOpened">imooc-admin</h1>
     </div>
     <el-scrollbar>

@@ -4,19 +4,15 @@ export default {
     loginBtn: '登录',
     usernameRule: '用户名为必填项',
     passwordRule: '密码不能少于6位',
-    desc: `
-    测试权限账号：<br />
-    提供三种权限账号：<br />
-    1. 超级管理员账号： super-admin <br />
-    2. 管理员账号：admin <br />
-    3. 测试可配置账号：test <br />
-    密码统一为：123456 <br />
-    <br />
-    导入用户账号：<br />
-    可使用导入的用户名登录 <br />
-    密码统一为：123456  <br />
-    <b>注意：导入用户区分中英文库！！！！</b>
-    `
+    testAccountTitle: '测试权限账号：',
+    testAccountDescription: '提供三种权限账号：',
+    superAdminAccount: '1. 超级管理员账号： super-admin',
+    adminAccount: '2. 管理员账号：admin',
+    configurableAccount: '3. 测试可配置账号：test',
+    unifiedPassword: '密码统一为：123456',
+    importedAccountTitle: '导入用户账号：',
+    importedAccountDescription: '可使用导入的用户名登录',
+    importWarning: '注意：导入用户区分中英文库！！！！'
   },
   route: {
     profile: '个人中心',
@@ -84,14 +80,14 @@ export default {
   },
   profile: {
     muted: '《vue3 改写 vue-element-admin，实现后台前端综合解决方案》项目演示',
-    introduce: '介绍',
+    introduce: '介绍（已升级 element-plus 正式版）',
     projectIntroduction: '项目介绍',
     projectFunction: '项目功能',
     feature: '功能',
     chapter: '章节',
     author: '作者',
-    name: 'Sunday',
-    job: '一个前端开发程序猿',
+    name: '公众号：程序员Sunday',
+    job: '微信：LGD_Sunday',
     Introduction:
       '高级技术专家，曾就职于国内一线互联网公司，统筹过的多个大型项目用户数已过千万级。致力于研究大前端技术，多次受邀参加国内前端技术分享会，如：2018 年 Google 中国技术分享会。'
   },
@@ -109,11 +105,19 @@ export default {
     experience: '经历',
     major: '专业',
     glory: '荣耀',
-    foot: '签字：___________日期:___________'
+    foot: '签字：___________日期:___________',
+    loadFailed: '员工信息加载失败',
+    retry: '重新加载',
+    noData: '暂无员工信息'
   },
   uploadExcel: {
     upload: '点击上传',
-    drop: '将文件拖到此处'
+    drop: '将文件拖到此处',
+    fileTypeError: '文件必须是 .xlsx 或 .xls 格式',
+    singleFile: '每次只能上传一个文件',
+    noWorksheet: 'Excel 文件中没有可读取的工作表',
+    noData: 'Excel 文件中没有可读取的数据',
+    parseFailed: 'Excel 文件解析失败，请检查文件是否损坏或格式是否正确'
   },
   excel: {
     importExcel: 'excel 导入',
@@ -138,7 +142,9 @@ export default {
     importSuccess: ' 条员工数据导入成功',
     dialogTitle1: '确定要删除用户 ',
     dialogTitle2: ' 吗？',
-    roleDialogTitle: '配置角色'
+    roleDialogTitle: '配置角色',
+    missingHeaders: 'Excel 缺少必填表头：{headers}',
+    emptyImport: 'Excel 中没有可导入的有效员工数据'
   },
   role: {
     buttonTxt: '新增角色',
@@ -180,10 +186,12 @@ export default {
     commit: '提交',
     createSuccess: '文章创建成功',
     editorSuccess: '文章修改成功',
-    sortSuccess: '文章排名修改成功'
+    sortSuccess: '文章排名修改成功',
+    titleRequired: '请输入文章标题',
+    contentRequired: '请输入文章内容'
   },
   chart: {
-    trendDataTitle: '本月累计收益',
+    trendDataTitle: '本月累计收益（万元）',
     trendDataTodayAdded: '今日新增收益',
     trendDataTodayExpend: '今日新增支出',
     trendDataTodayBalance: '今日结余',
@@ -194,20 +202,20 @@ export default {
     expend: '支出',
     balance: '结余',
     pieChartTitle: '大区营销图示',
-    cloudChartTitle: '关键云词',
-    bmapChartTitle: '营收业绩图示',
+    cloudChartTitle: '慕课 logo 文字云',
+    bmapChartTitle: '营收业绩图示（地图不支持国际化）',
     revenue: '营收',
     revenueTop5: '营收 TOP 5',
     bmapMissingAk: '请配置 VITE_BAIDU_MAP_AK 后查看地图',
     bmapLoadFailed: '百度地图加载失败，请检查 AK 与 Referer 白名单',
-    todayReceivable: '今日应收',
+    todayReceivable: '今日回款',
     todayBalance: '今日结余',
     sheetIndex: '序号',
     sheetProvince: '省份',
     sheetCity: '城市',
     sheetCoverage: '覆盖率',
-    sheetReceivable: '应收',
-    sheetActual: '实收',
+    sheetReceivable: '今日应收',
+    sheetActual: '今日实收',
     sheetBalance: '结余',
     noData: '暂无数据'
   }

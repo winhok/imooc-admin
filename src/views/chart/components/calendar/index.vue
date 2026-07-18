@@ -18,12 +18,14 @@ const classOf = (date: string, isSelected: boolean) => ({
 </script>
 
 <template>
-  <el-card class="calendar-card" shadow="never" :body-style="{ padding: 0 }">
+  <el-card class="calendar-card" :body-style="{ padding: 0 }">
     <el-calendar v-model="selectedDate" class="calendar">
       <template #date-cell="{ data }">
         <div class="calendar-day" :class="classOf(data.day, data.isSelected)">
-          <span>{{ Number(data.day.slice(-2)) }}</span>
-          <strong v-if="amountOf(data.day)">{{ amountOf(data.day) }}</strong>
+          <span>{{ data.day.slice(-2) }}</span>
+          <span v-if="amountOf(data.day)" class="calendar-day__amount">
+            {{ amountOf(data.day) }}
+          </span>
         </div>
       </template>
     </el-calendar>
@@ -38,6 +40,7 @@ const classOf = (date: string, isSelected: boolean) => ({
 .calendar {
   :deep(.el-calendar__body) {
     padding: 0 12px 12px;
+    font-size: 14px;
   }
 
   :deep(.el-calendar-day) {
@@ -51,31 +54,31 @@ const classOf = (date: string, isSelected: boolean) => ({
   flex-direction: column;
   height: 100%;
   padding: 8px;
-  font-size: 13px;
+  font-size: 14px;
 
-  strong {
+  &__amount {
     margin-top: 4px;
     font-size: 12px;
   }
 
-  &--selected {
-    background: #ecf5ff;
-  }
-
   &--profit {
-    background: #f0f9eb;
+    background: #f3fff3;
 
-    strong {
-      color: #529b2e;
+    .calendar-day__amount {
+      color: #649840;
     }
   }
 
   &--loss {
-    background: #fef0f0;
+    background: #ffe7e7;
 
-    strong {
-      color: #c45656;
+    .calendar-day__amount {
+      color: #b65d59;
     }
+  }
+
+  &--selected {
+    background: #d6f2ff;
   }
 }
 </style>

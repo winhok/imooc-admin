@@ -99,7 +99,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <el-card class="map-card" shadow="never">
+  <el-card class="map-card">
     <h3 class="map-card__title">{{ $t('msg.chart.bmapChartTitle') }}</h3>
     <el-empty v-if="error" :description="error" />
     <div v-else ref="chart" class="map-card__chart" />
@@ -109,26 +109,27 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .map-card {
   position: relative;
-  height: 500px;
+  height: 504px;
 
   &__title {
     position: absolute;
-    top: 24px;
+    top: 28px;
     left: 50%;
     z-index: 2;
     margin: 0;
     color: #303133;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 700;
     transform: translateX(-50%);
   }
 
   &__chart {
     width: 100%;
-    height: 452px;
+    height: 462px;
   }
 
   :deep(.el-empty) {
-    height: 452px;
+    height: 462px;
   }
 }
 </style>

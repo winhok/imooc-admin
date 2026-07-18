@@ -28,7 +28,7 @@ const animate = async () => {
     if (!target) return
     const counter = new CountUp(target, value, {
       decimalPlaces: 2,
-      duration: 1.2
+      duration: 1.5
     })
     counters.push(counter)
     counter.start()
@@ -48,17 +48,29 @@ onBeforeUnmount(() => counters.forEach((counter) => counter.reset()))
       <strong class="trend-data__amount">¥ <span ref="total" /></strong>
     </div>
 
-    <div class="trend-data__item trend-data__item--income">
-      <span>{{ $t('msg.chart.trendDataTodayAdded') }}</span>
-      <strong><span ref="added" /> {{ $t('msg.chart.unit') }}</strong>
+    <div class="trend-data__item">
+      <span class="trend-data__item-label trend-data__item-label--income">{{
+        $t('msg.chart.trendDataTodayAdded')
+      }}</span>
+      <span class="trend-data__item-amount">
+        <strong ref="added" /> {{ $t('msg.chart.unit') }}
+      </span>
     </div>
-    <div class="trend-data__item trend-data__item--expense">
-      <span>{{ $t('msg.chart.trendDataTodayExpend') }}</span>
-      <strong><span ref="expense" /> {{ $t('msg.chart.unit') }}</strong>
+    <div class="trend-data__item">
+      <span class="trend-data__item-label trend-data__item-label--expense">{{
+        $t('msg.chart.trendDataTodayExpend')
+      }}</span>
+      <span class="trend-data__item-amount">
+        <strong ref="expense" /> {{ $t('msg.chart.unit') }}
+      </span>
     </div>
-    <div class="trend-data__item trend-data__item--balance">
-      <span>{{ $t('msg.chart.trendDataTodayBalance') }}</span>
-      <strong><span ref="balance" /> {{ $t('msg.chart.unit') }}</strong>
+    <div class="trend-data__item">
+      <span class="trend-data__item-label trend-data__item-label--balance">{{
+        $t('msg.chart.trendDataTodayBalance')
+      }}</span>
+      <span class="trend-data__item-amount">
+        <strong ref="balance" /> {{ $t('msg.chart.unit') }}
+      </span>
     </div>
   </div>
 </template>
@@ -68,16 +80,16 @@ onBeforeUnmount(() => counters.forEach((counter) => counter.reset()))
   height: 100%;
 
   &__total {
-    padding: 14px 20px;
+    padding: 12px 20px;
     color: #fff;
-    background: linear-gradient(135deg, #0ea5e9, #6366f1);
-    border-radius: 8px;
+    background: linear-gradient(to right, #0ea5e9, #6366f1);
+    border-radius: 5px;
   }
 
   &__label {
     display: block;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   &__amount {
@@ -90,16 +102,15 @@ onBeforeUnmount(() => counters.forEach((counter) => counter.reset()))
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 0 14px 10px;
-    color: #606266;
-    border-bottom: 1px solid #ebeef5;
-    border-left: 5px solid transparent;
+    padding: 16px 0;
+    color: #666;
+    border-bottom: 1px solid #c9c9c9;
     font-size: 12px;
+  }
 
-    strong {
-      color: #303133;
-      font-size: 16px;
-    }
+  &__item-label {
+    padding: 4px 0 4px 8px;
+    border-left: 6px solid transparent;
 
     &--income {
       border-left-color: #409eff;
@@ -111,6 +122,15 @@ onBeforeUnmount(() => counters.forEach((counter) => counter.reset()))
 
     &--balance {
       border-left-color: #67c23a;
+    }
+  }
+
+  &__item-amount {
+    font-size: 12px;
+
+    strong {
+      color: #333;
+      font-size: 20px;
     }
   }
 }

@@ -3,6 +3,7 @@ import { shallowRef, useTemplateRef } from 'vue'
 import * as XLSX from 'xlsx'
 import { ElMessage } from 'element-plus'
 import { UploadFilled } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
 import { getHeaderRow, isExcel } from './utils'
 
 export interface ExcelData {
@@ -12,46 +13,67 @@ export interface ExcelData {
 
 const props = defineProps<{
   beforeUpload?: (file: File) => boolean
-  onSuccess?: (excelData: ExcelData) => void
+  onSuccess?: (excelData: ExcelData) => void | Promise<void>
 }>()
 
+const i18n = useI18n()
 const loading = shallowRef(false)
 const excelUploadInput = useTemplateRef<HTMLInputElement>('excelUploadInput')
 
-function generateData(excelData: ExcelData) {
-  props.onSuccess?.(excelData)
+async function generateData(excelData: ExcelData) {
+  await props.onSuccess?.(excelData)
 }
 
-async function readerData(rawFile: File) {
-  loading.value = true
-
+async function parseExcel(rawFile: File): Promise<ExcelData | null> {
   try {
     const data = await rawFile.arrayBuffer()
     const workbook = XLSX.read(data, { type: 'array' })
     const firstSheetName = workbook.SheetNames[0]
 
     if (!firstSheetName) {
-      ElMessage.error('Excel 文件中没有可读取的工作表')
-      return
+      ElMessage.error(i18n.t('msg.uploadExcel.noWorksheet'))
+      return null
     }
 
     const worksheet = workbook.Sheets[firstSheetName]
     if (!worksheet) {
-      ElMessage.error('Excel 文件中没有可读取的数据')
-      return
+      ElMessage.error(i18n.t('msg.uploadExcel.noData'))
+      return null
     }
 
     const header = getHeaderRow(worksheet)
     const results = XLSX.utils.sheet_to_json<Record<string, unknown>>(worksheet)
-    generateData({ header, results })
+    return { header, results }
+  } catch {
+    ElMessage.error(i18n.t('msg.uploadExcel.parseFailed'))
+    return null
+  }
+}
+
+async function readerData(rawFile: File) {
+  loading.value = true
+
+  try {
+    const excelData = await parseExcel(rawFile)
+    if (!excelData) return
+    try {
+      await generateData(excelData)
+    } catch {}
   } finally {
     loading.value = false
   }
 }
 
 function upload(rawFile: File) {
+  if (loading.value) return
+
   if (excelUploadInput.value) {
     excelUploadInput.value.value = ''
+  }
+
+  if (!isExcel(rawFile)) {
+    ElMessage.error(i18n.t('msg.uploadExcel.fileTypeError'))
+    return
   }
 
   if (!props.beforeUpload) {
@@ -65,6 +87,7 @@ function upload(rawFile: File) {
 }
 
 function handleUpload() {
+  if (loading.value) return
   excelUploadInput.value?.click()
 }
 
@@ -81,15 +104,12 @@ function handleDrop(event: DragEvent) {
 
   const files = event.dataTransfer?.files
   if (!files || files.length !== 1) {
-    ElMessage.error('必须要有一个文件')
+    ElMessage.error(i18n.t('msg.uploadExcel.singleFile'))
     return
   }
 
   const rawFile = files[0]
-  if (!rawFile || !isExcel(rawFile)) {
-    ElMessage.error('文件必须是 .xlsx, .xls, .csv 格式')
-    return
-  }
+  if (!rawFile) return
 
   upload(rawFile)
 }
@@ -113,7 +133,7 @@ function handleDragover(event: DragEvent) {
       ref="excelUploadInput"
       class="excel-upload-input"
       type="file"
-      accept=".xlsx, .xls, .csv"
+      accept=".xlsx, .xls"
       @change="handleChange"
     />
 

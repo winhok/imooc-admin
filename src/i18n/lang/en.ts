@@ -4,19 +4,16 @@ export default {
     loginBtn: 'Login',
     usernameRule: 'Username is required',
     passwordRule: 'Password cannot be less than 6 digits',
-    desc: `
-    Test authority account:<br />
-     Provide three kinds of authority accounts:<br />
-     1. Super administrator account: super-admin <br />
-     2. Administrator account: admin <br />
-     3. Test configurable account: test <br />
-     The uniform password is: 123456 <br />
-     <br />
-     Import user account:<br />
-     You can log in with the imported username <br />
-     The password is unified as: 123456 <br />
-     <b>Note: Import user-discriminatory Chinese and English libraries! ! ! ! </b>
-    `
+    testAccountTitle: 'Test authority account:',
+    testAccountDescription: 'Provide three kinds of authority accounts:',
+    superAdminAccount: '1. Super administrator account: super-admin',
+    adminAccount: '2. Administrator account: admin',
+    configurableAccount: '3. Test configurable account: test',
+    unifiedPassword: 'The uniform password is: 123456',
+    importedAccountTitle: 'Import user account:',
+    importedAccountDescription: 'You can log in with the imported username',
+    importWarning:
+      'Note: Imported users are separated between Chinese and English databases!'
   },
   route: {
     profile: 'Profile',
@@ -110,11 +107,20 @@ export default {
     experience: 'Experience',
     major: 'Professional',
     glory: 'Glory',
-    foot: 'Signature:___________Date:___________'
+    foot: 'Signature:___________Date:___________',
+    loadFailed: 'Failed to load employee information',
+    retry: 'Retry',
+    noData: 'No employee information'
   },
   uploadExcel: {
     upload: 'Click upload',
-    drop: 'Drag files here'
+    drop: 'Drag files here',
+    fileTypeError: 'The file must be in .xlsx or .xls format',
+    singleFile: 'Only one file can be uploaded at a time',
+    noWorksheet: 'No readable worksheet was found in the Excel file',
+    noData: 'No readable data was found in the Excel file',
+    parseFailed:
+      'Failed to parse the Excel file. Check its format and integrity'
   },
   excel: {
     importExcel: 'excel import',
@@ -139,7 +145,9 @@ export default {
     importSuccess: ' Employee data imported successfully',
     dialogTitle1: 'Are you sure you want to delete the user ',
     dialogTitle2: ' Is it?',
-    roleDialogTitle: 'Configure roles'
+    roleDialogTitle: 'Configure roles',
+    missingHeaders: 'Required Excel headers are missing: {headers}',
+    emptyImport: 'The Excel file contains no valid employee data'
   },
   role: {
     buttonTxt: 'New Role',
@@ -181,10 +189,12 @@ export default {
     commit: 'commit',
     createSuccess: 'The article was created successfully',
     editorSuccess: 'Article modified successfully',
-    sortSuccess: 'Article ranking modified successfully'
+    sortSuccess: 'Article ranking modified successfully',
+    titleRequired: 'Please enter an article title',
+    contentRequired: 'Please enter article content'
   },
   chart: {
-    trendDataTitle: 'Monthly Cumulative Revenue',
+    trendDataTitle: 'Monthly Cumulative Revenue (10K CNY)',
     trendDataTodayAdded: 'Revenue Added Today',
     trendDataTodayExpend: 'Expenses Added Today',
     trendDataTodayBalance: 'Today Balance',
@@ -195,21 +205,21 @@ export default {
     expend: 'Expense',
     balance: 'Balance',
     pieChartTitle: 'Regional Marketing',
-    cloudChartTitle: 'Keyword Cloud',
-    bmapChartTitle: 'Revenue Performance',
+    cloudChartTitle: 'imooc Logo Word Cloud',
+    bmapChartTitle: 'Revenue Performance (map labels are not localized)',
     revenue: 'Revenue',
     revenueTop5: 'Revenue TOP 5',
     bmapMissingAk: 'Configure VITE_BAIDU_MAP_AK to display the map',
     bmapLoadFailed:
       'Baidu Map failed to load. Check the AK and Referer allowlist',
-    todayReceivable: 'Receivable Today',
+    todayReceivable: 'Collected Today',
     todayBalance: 'Balance Today',
     sheetIndex: 'No.',
     sheetProvince: 'Province',
     sheetCity: 'City',
     sheetCoverage: 'Coverage',
-    sheetReceivable: 'Receivable',
-    sheetActual: 'Actual',
+    sheetReceivable: 'Receivable Today',
+    sheetActual: 'Actual Today',
     sheetBalance: 'Balance',
     noData: 'No data'
   }

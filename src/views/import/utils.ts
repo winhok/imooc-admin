@@ -10,11 +10,33 @@ export const USER_RELATIONS = {
 type UserRelationKey = keyof typeof USER_RELATIONS
 type UserRelationValue = (typeof USER_RELATIONS)[UserRelationKey]
 
+export const REQUIRED_USER_HEADERS = Object.keys(
+  USER_RELATIONS
+) as UserRelationKey[]
+
 export type ImportedExcelRow = Partial<Record<UserRelationKey, unknown>> &
   Record<string, unknown>
 
 function isRelationKey(key: string): key is UserRelationKey {
   return Object.prototype.hasOwnProperty.call(USER_RELATIONS, key)
+}
+
+function hasValue(value: unknown) {
+  if (value === null || value === undefined) return false
+  return typeof value !== 'string' || value.trim().length > 0
+}
+
+export function getMissingUserHeaders(headers: string[]) {
+  const normalizedHeaders = new Set(headers.map((header) => header.trim()))
+  return REQUIRED_USER_HEADERS.filter(
+    (header) => !normalizedHeaders.has(header)
+  )
+}
+
+export function getEffectiveImportedRows(results: ImportedExcelRow[]) {
+  return results.filter((row) =>
+    REQUIRED_USER_HEADERS.some((header) => hasValue(row[header]))
+  )
 }
 
 export const formatExcelDate = (value: unknown) => {

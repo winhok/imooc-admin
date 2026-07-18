@@ -15,16 +15,18 @@ const option = computed<EChartsCoreOption>(() => ({
   tooltip: {
     trigger: 'axis',
     axisPointer: {
-      type: 'cross'
+      type: 'cross',
+      crossStyle: { color: '#999' }
     }
   },
   legend: {
     data: [t('msg.chart.monthIncome'), t('msg.chart.dayIncome')],
+    top: 0,
     right: 0
   },
   grid: {
-    top: 36,
-    right: 8,
+    top: 20,
+    right: 0,
     bottom: 0,
     left: 0,
     containLabel: true
@@ -37,6 +39,7 @@ const option = computed<EChartsCoreOption>(() => ({
   yAxis: {
     type: 'value',
     min: 0,
+    max: ({ max }: { max: number }) => Math.trunc(max * 1.2),
     axisLabel: {
       formatter: `{value} ${t('msg.chart.unit')}`
     }
@@ -45,16 +48,22 @@ const option = computed<EChartsCoreOption>(() => ({
     {
       name: t('msg.chart.monthIncome'),
       type: 'bar',
-      barMaxWidth: 24,
-      itemStyle: { borderRadius: [4, 4, 0, 0] },
+      barWidth: 20,
+      tooltip: {
+        valueFormatter: (value: string | number) =>
+          `${value}${t('msg.chart.unit')}`
+      },
       data: props.data.monthAmountList.map((item) => item.amount)
     },
     {
       name: t('msg.chart.dayIncome'),
       type: 'line',
+      color: '#6ec6d0',
       smooth: true,
-      showSymbol: false,
-      lineStyle: { width: 3 },
+      tooltip: {
+        valueFormatter: (value: string | number) =>
+          `${value}${t('msg.chart.unit')}`
+      },
       data: props.data.dailyCurve.map((item) => item.amount)
     }
   ]
@@ -70,6 +79,6 @@ useEChart(target, option)
 <style scoped>
 .trend-chart {
   width: 100%;
-  height: 238px;
+  height: 248px;
 }
 </style>

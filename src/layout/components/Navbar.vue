@@ -27,9 +27,9 @@ async function handleLogout() {
   <div class="navbar">
     <hamburger class="hamburger-container" />
     <breadcrumb id="guide-breadcrumb" class="breadcrumb-container" />
-    <HeaderSearch class="right-menu-item hover-effect" />
-    <Guide class="right-menu-item hover-effect" />
     <div class="right-menu">
+      <Guide class="right-menu-item hover-effect" />
+      <HeaderSearch class="right-menu-item hover-effect" />
       <Screenfull class="right-menu-item hover-effect"></Screenfull>
       <ThemeSelect class="right-menu-item hover-effect"></ThemeSelect>
       <LangSelect class="right-menu-item hover-effect" />
@@ -42,7 +42,10 @@ async function handleLogout() {
             <router-link to="/">
               <el-dropdown-item> {{ $t('msg.navBar.home') }} </el-dropdown-item>
             </router-link>
-            <a target="_blank" href="">
+            <a
+              target="_blank"
+              href="https://mp.weixin.qq.com/s?__biz=MzkxNjUxMDg4Ng==&mid=2247490324&idx=1&sn=57c1f2dd68a09a03396267c883c5f45f&chksm=c14f9addf63813cbdac53649a26ce90f59347ae6d85e215900618de2b6fac5d14bac8c726a95&token=1631226138&lang=zh_CN#rd"
+            >
               <el-dropdown-item>{{ $t('msg.navBar.course') }}</el-dropdown-item>
             </a>
             <el-dropdown-item divided @click="handleLogout">
@@ -94,6 +97,11 @@ async function handleLogout() {
 
       &.hover-effect {
         cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.025);
+        }
       }
     }
 
@@ -103,6 +111,7 @@ async function handleLogout() {
         margin-top: 5px;
         position: relative;
         .el-avatar {
+          --el-avatar-bg-color: transparent;
           margin-right: 12px;
         }
       }

@@ -28,6 +28,16 @@ declare module '*.svg' {
   export default src
 }
 
+declare module '*.png' {
+  const src: string
+  export default src
+}
+
+declare module '*.gif' {
+  const src: string
+  export default src
+}
+
 declare module 'virtual:svg-icons-register' {
   const register: unknown
   export default register

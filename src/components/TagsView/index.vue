@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ContextMenu from '@/components/TagsView/ContextMenu.vue'
-import { Close } from '@element-plus/icons-vue'
 import { useRoute } from 'vue-router'
 import { useAppStore, type TagsViewItem } from '@/stores'
 import { ref, reactive, watch, onUnmounted } from 'vue'
@@ -67,13 +66,11 @@ onUnmounted(() => {
         :to="{ path: tag.fullPath }"
       >
         {{ tag.title }}
-        <el-icon
+        <SvgIcon
           v-show="!isActive(tag)"
-          class="el-icon-close"
+          icon="close"
           @click.prevent.stop="onCloseClick(index)"
-        >
-          <Close />
-        </el-icon>
+        />
       </router-link>
     </el-scrollbar>
     <context-menu
@@ -123,25 +120,6 @@ onUnmounted(() => {
         border-radius: 50%;
         position: relative;
         margin-right: 4px;
-      }
-    }
-    .el-icon-close {
-      width: 16px;
-      height: 16px;
-      line-height: 10px;
-      vertical-align: 2px;
-      border-radius: 50%;
-      text-align: center;
-      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-      transform-origin: 100% 50%;
-      &:before {
-        transform: scale(0.6);
-        display: inline-block;
-        vertical-align: -3px;
-      }
-      &:hover {
-        background-color: #b4bccc;
-        color: #fff;
       }
     }
   }

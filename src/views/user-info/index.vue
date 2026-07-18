@@ -1,30 +1,55 @@
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue'
+import { computed, shallowRef, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { userDetail, type UserDetail } from '@/api/user-manage'
 import { dateFormat } from '@/filters'
-import { watchSwitchLang } from '@/utils/i18n'
+import { useAppStore } from '@/stores'
 
 const props = defineProps<{
   id: string
 }>()
 
-const detailData = shallowRef<UserDetail>({
-  _id: props.id
-})
+const appStore = useAppStore()
+const i18n = useI18n()
+const detailData = shallowRef<UserDetail | null>(null)
+const loading = shallowRef(false)
+const errorMessage = shallowRef('')
+const reloadKey = shallowRef(0)
 const printLoading = shallowRef(false)
 
-const remarkList = computed(() => detailData.value.remark ?? [])
-const experienceList = computed(() => detailData.value.experience ?? [])
+const remarkList = computed(() => detailData.value?.remark ?? [])
+const experienceList = computed(() => detailData.value?.experience ?? [])
 const avatarPreviewList = computed(() =>
-  detailData.value.avatar ? [detailData.value.avatar] : []
+  detailData.value?.avatar ? [detailData.value.avatar] : []
 )
 
-async function getUserDetail() {
-  detailData.value = await userDetail(props.id)
+function retry() {
+  reloadKey.value += 1
 }
 
-void getUserDetail()
-watchSwitchLang(getUserDetail)
+watch(
+  [() => props.id, () => appStore.language, reloadKey],
+  async ([id], _oldValue, onCleanup) => {
+    let cancelled = false
+    onCleanup(() => {
+      cancelled = true
+    })
+
+    loading.value = true
+    errorMessage.value = ''
+    detailData.value = null
+
+    try {
+      const detail = await userDetail(id)
+      if (!cancelled) detailData.value = detail
+    } catch {
+      if (!cancelled) errorMessage.value = i18n.t('msg.userInfo.loadFailed')
+    } finally {
+      if (!cancelled) loading.value = false
+    }
+  },
+  { immediate: true }
+)
 
 const printObj = {
   id: 'userInfoBox',
@@ -44,12 +69,24 @@ const printObj = {
 <template>
   <div class="user-info-container">
     <el-card class="print-box">
-      <el-button v-print="printObj" type="primary" :loading="printLoading">
+      <el-button
+        v-print="printObj"
+        type="primary"
+        :loading="printLoading"
+        :disabled="loading || !detailData"
+      >
         {{ $t('msg.userInfo.print') }}
       </el-button>
     </el-card>
-    <el-card>
-      <div id="userInfoBox" class="user-info-box">
+    <el-card v-loading="loading">
+      <el-result v-if="errorMessage" icon="error" :title="errorMessage">
+        <template #extra>
+          <el-button type="primary" @click="retry">
+            {{ $t('msg.userInfo.retry') }}
+          </el-button>
+        </template>
+      </el-result>
+      <div v-else-if="detailData" id="userInfoBox" class="user-info-box">
         <h2 class="title">{{ $t('msg.userInfo.title') }}</h2>
 
         <div class="header">
@@ -117,6 +154,7 @@ const printObj = {
         </div>
         <div class="foot">{{ $t('msg.userInfo.foot') }}</div>
       </div>
+      <el-empty v-else-if="!loading" :description="$t('msg.userInfo.noData')" />
     </el-card>
   </div>
 </template>

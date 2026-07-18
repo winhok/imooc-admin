@@ -23,9 +23,9 @@ watch(
 )
 
 const option = computed<EChartsCoreOption>(() => {
-  const income = `${t('msg.chart.income')} (${t('msg.chart.unit')})`
-  const expend = `${t('msg.chart.expend')} (${t('msg.chart.unit')})`
-  const balance = `${t('msg.chart.balance')} (${t('msg.chart.unit')})`
+  const income = `${t('msg.chart.income')}（${t('msg.chart.unit')}）`
+  const expend = `${t('msg.chart.expend')}（${t('msg.chart.unit')}）`
+  const balance = `${t('msg.chart.balance')}（${t('msg.chart.unit')}）`
 
   return {
     tooltip: {
@@ -34,11 +34,12 @@ const option = computed<EChartsCoreOption>(() => {
     },
     legend: {
       data: [income, expend, balance],
+      top: 0,
       right: 0
     },
     grid: {
-      top: 44,
-      right: 16,
+      top: 28,
+      right: 0,
       bottom: 0,
       left: 0,
       containLabel: true
@@ -55,7 +56,7 @@ const option = computed<EChartsCoreOption>(() => {
         name: income,
         type: 'bar',
         stack: 'cashflow',
-        color: '#67c23a',
+        color: '#6dc473',
         label: { show: true, position: 'right' },
         emphasis: { focus: 'series' },
         data: data.value.map((item) => item.income)
@@ -64,15 +65,15 @@ const option = computed<EChartsCoreOption>(() => {
         name: expend,
         type: 'bar',
         stack: 'cashflow',
-        color: '#f56c6c',
-        label: { show: true, position: 'left' },
+        color: '#e47470',
+        label: { show: true, position: 'right' },
         emphasis: { focus: 'series' },
         data: data.value.map((item) => item.expense)
       },
       {
         name: balance,
         type: 'bar',
-        color: '#409eff',
+        color: '#83c0df',
         label: { show: true, position: 'inside' },
         emphasis: { focus: 'series' },
         data: data.value.map((item) => item.balance)
@@ -85,7 +86,7 @@ useEChart(target, option)
 </script>
 
 <template>
-  <el-card shadow="never" :body-style="{ paddingTop: '12px' }">
+  <el-card :body-style="{ paddingTop: '12px' }">
     <div ref="chart" class="horizontal-bar" />
   </el-card>
 </template>

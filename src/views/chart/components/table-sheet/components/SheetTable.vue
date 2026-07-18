@@ -50,7 +50,7 @@ const options = (): S2Options => ({
       {
         field: 'balance',
         mapping: (value) => ({
-          fill: Number(value) >= 0 ? '#f0f9eb' : '#fef0f0'
+          fill: Number(value) >= 0 ? '#f3fff3' : '#ffe7e7'
         })
       }
     ]
@@ -86,7 +86,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <el-card shadow="never" :body-style="{ padding: 0 }">
+  <el-card :body-style="{ padding: 0 }">
     <div ref="sheet" class="sheet-table" />
   </el-card>
 </template>

@@ -1,16 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import PanThumb from '@/components/PanThumb/index.vue'
+import { useUserStore } from '@/stores'
+
+const { t } = useI18n()
+const userStore = useUserStore()
+const introduction = computed(() => t('msg.profile.Introduction'))
 </script>
 
 <template>
   <div class="author-container">
     <div class="header">
-      <pan-thumb
-        image="https://img4.sycdn.imooc.com/61110c2b0001152907400741-140-140.jpg"
-        height="60px"
-        width="60px"
-        :hoverable="false"
-      >
+      <pan-thumb :image="userStore.userInfo.avatar" height="60px" width="60px">
         {{ $t('msg.profile.name') }}
       </pan-thumb>
       <div class="header-desc">
@@ -19,7 +21,7 @@ import PanThumb from '@/components/PanThumb/index.vue'
       </div>
     </div>
     <div class="info">
-      {{ $t('msg.profile.Introduction') }}
+      {{ introduction }}
     </div>
   </div>
 </template>
@@ -35,14 +37,14 @@ import PanThumb from '@/components/PanThumb/index.vue'
       justify-content: space-around;
 
       span {
-        font-size: 14px;
+        font-size: 16px;
       }
     }
   }
   .info {
     margin-top: 16px;
     line-height: 22px;
-    font-size: 14px;
+    font-size: 16px;
     text-indent: 26px;
   }
 }

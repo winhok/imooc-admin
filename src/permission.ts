@@ -1,4 +1,4 @@
-import router from './router'
+import router, { isKnownPrivatePath } from './router'
 import { pinia, usePermissionStore, useUserStore } from '@/stores'
 import {
   HOME_PATH,
@@ -30,6 +30,10 @@ router.beforeEach(async (to) => {
         userStore.logout()
         return { path: LOGIN_PATH, query: { redirect: to.fullPath } }
       }
+    }
+
+    if (to.name === 'dynamicNotFound' && isKnownPrivatePath(to.path)) {
+      return NO_PERMISSION_PATH
     }
 
     return true

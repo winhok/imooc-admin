@@ -20,5 +20,5 @@ export const getHeaderRow = (sheet: WorkSheet) => {
 }
 
 export const isExcel = (file: File) => {
-  return /\.(xlsx|xls|csv)$/i.test(file.name)
+  return /\.(xlsx|xls)$/i.test(file.name)
 }

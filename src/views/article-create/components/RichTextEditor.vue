@@ -67,11 +67,12 @@ async function handleSubmit() {
 
   submitting.value = true
   try {
-    await submitArticle({
+    const submitted = await submitArticle({
       articleId: props.detail?._id,
       title: props.title,
       content: getEditorHtml(editor.value)
     })
+    if (!submitted) return
     editor.value.txt.html('')
     emit('success')
   } finally {

@@ -93,7 +93,19 @@ async function onSubmit() {
       >
         {{ $t('msg.login.loginBtn') }}
       </el-button>
-      <div class="tips" v-html="$t('msg.login.desc')"></div>
+      <div class="tips">
+        {{ $t('msg.login.testAccountTitle') }}<br />
+        {{ $t('msg.login.testAccountDescription') }}<br />
+        {{ $t('msg.login.superAdminAccount') }}<br />
+        {{ $t('msg.login.adminAccount') }}<br />
+        {{ $t('msg.login.configurableAccount') }}<br />
+        {{ $t('msg.login.unifiedPassword') }}<br />
+        <br />
+        {{ $t('msg.login.importedAccountTitle') }}<br />
+        {{ $t('msg.login.importedAccountDescription') }}<br />
+        {{ $t('msg.login.unifiedPassword') }}<br />
+        <strong>{{ $t('msg.login.importWarning') }}</strong>
+      </div>
     </el-form>
   </div>
 </template>
@@ -168,6 +180,24 @@ $cursor: #fff;
       text-align: center;
       font-weight: bold;
     }
+
+    :deep(.lang-select) {
+      position: absolute;
+      top: 4px;
+      right: 0;
+      padding: 4px;
+      border-radius: 4px;
+      background: #fff;
+      font-size: 22px;
+      cursor: pointer;
+    }
+  }
+
+  .tips {
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 28px;
   }
 
   .show-pwd {

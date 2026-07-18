@@ -12,28 +12,25 @@ const target = useTemplateRef<HTMLElement>('chart')
 const option = computed<EChartsCoreOption>(() => ({
   title: {
     text: t('msg.chart.pieChartTitle'),
-    left: 16,
-    top: 14,
-    textStyle: { fontSize: 16 }
+    top: 0,
+    left: 0
   },
   tooltip: {
     trigger: 'item',
-    valueFormatter: (value: string | number) =>
-      `${value} ${t('msg.chart.unit')}`
+    formatter: `{b}: {c} ${t('msg.chart.unit')}`
   },
   series: [
     {
       type: 'pie',
-      radius: ['42%', '72%'],
-      center: ['50%', '58%'],
+      radius: ['40%', '70%'],
       itemStyle: {
-        borderRadius: 8,
+        borderRadius: 10,
         borderColor: '#fff',
         borderWidth: 2
       },
-      label: { show: false, position: 'center' },
+      label: { show: false, formatter: '{b}: {d}%', position: 'center' },
       emphasis: {
-        label: { show: true, fontSize: 18, fontWeight: 'bold' }
+        label: { show: true, fontSize: 22, fontWeight: 'bold' }
       },
       data: data.value
     }
@@ -44,7 +41,7 @@ useEChart(target, option)
 </script>
 
 <template>
-  <el-card shadow="never" :body-style="{ padding: 0 }">
+  <el-card :body-style="{ padding: 0 }">
     <div ref="chart" class="pie-chart" />
   </el-card>
 </template>

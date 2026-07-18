@@ -3,11 +3,11 @@ import ProjectCard from './components/ProjectCard.vue'
 import Chapter from './components/Chapter.vue'
 import Feature from './components/Feature.vue'
 import Author from './components/Author.vue'
-import { ref } from 'vue'
+import { shallowRef } from 'vue'
 import { feature, type FeatureItem } from '@/api/user'
 import { useLangFetch } from '@/utils/i18n'
 
-const activeName = ref('feature')
+const activeName = shallowRef('author')
 const featureData = useLangFetch<FeatureItem[]>(feature, [])
 </script>
 
@@ -20,14 +20,14 @@ const featureData = useLangFetch<FeatureItem[]>(feature, [])
       <el-col :span="18">
         <el-card>
           <el-tabs v-model="activeName">
+            <el-tab-pane :label="$t('msg.profile.author')" name="author">
+              <Author />
+            </el-tab-pane>
             <el-tab-pane :label="$t('msg.profile.feature')" name="feature">
               <Feature :features="featureData" />
             </el-tab-pane>
             <el-tab-pane :label="$t('msg.profile.chapter')" name="chapter" lazy>
               <Chapter />
-            </el-tab-pane>
-            <el-tab-pane :label="$t('msg.profile.author')" name="author" lazy>
-              <Author />
             </el-tab-pane>
           </el-tabs>
         </el-card>

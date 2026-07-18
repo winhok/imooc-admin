@@ -1,6 +1,7 @@
 import {
   createRouter,
   createWebHashHistory,
+  createWebHistory,
   type RouteRecordRaw
 } from 'vue-router'
 import { HOME_PATH, LOGIN_PATH, NOT_FOUND_PATH } from '@/constant'
@@ -19,12 +20,48 @@ declare module 'vue-router' {
 }
 
 export const asyncRoutes: RouteRecordRaw[] = [
-  roleListRouter,
   userManageRouter,
+  roleListRouter,
   permissionListRouter,
-  articleCreateRouter,
-  articleRankingRouter
+  articleRankingRouter,
+  articleCreateRouter
 ]
+
+function joinRoutePath(parentPath: string, routePath: string) {
+  if (routePath.startsWith('/')) return routePath
+  return `${parentPath.replace(/\/$/, '')}/${routePath}`
+}
+
+function collectRoutePaths(
+  routes: RouteRecordRaw[],
+  parentPath = ''
+): string[] {
+  return routes.flatMap((route) => {
+    const path = joinRoutePath(parentPath, route.path)
+    const childPaths = route.children
+      ? collectRoutePaths(route.children, path)
+      : []
+    return [path, ...childPaths]
+  })
+}
+
+function routePathToRegExp(routePath: string) {
+  const pattern = routePath
+    .split('/')
+    .map((segment) => {
+      if (segment.startsWith(':')) return '[^/]+'
+      return segment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    })
+    .join('/')
+  return new RegExp(`^${pattern}/?$`)
+}
+
+const privateRoutePatterns =
+  collectRoutePaths(asyncRoutes).map(routePathToRegExp)
+
+export function isKnownPrivatePath(path: string) {
+  return privateRoutePatterns.some((pattern) => pattern.test(path))
+}
 
 export const publicRoutes: RouteRecordRaw[] = [
   {
@@ -71,16 +108,19 @@ export const publicRoutes: RouteRecordRaw[] = [
 export const notFoundRoute: RouteRecordRaw = {
   path: '/:pathMatch(.*)*',
   name: 'dynamicNotFound',
-  redirect: NOT_FOUND_PATH
+  component: () => import('@/views/error-page/404.vue'),
+  beforeEnter: () => NOT_FOUND_PATH
 }
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: publicRoutes
+  history: import.meta.env.PROD
+    ? createWebHistory(import.meta.env.BASE_URL)
+    : createWebHashHistory(import.meta.env.BASE_URL),
+  routes: [...publicRoutes, notFoundRoute]
 })
 
 export function resetRouter() {
-  for (const route of [...asyncRoutes, notFoundRoute]) {
+  for (const route of asyncRoutes) {
     if (route.name && router.hasRoute(route.name)) {
       router.removeRoute(route.name)
     }

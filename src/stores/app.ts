@@ -1,10 +1,8 @@
 import { LANG, TAGS_VIEW } from '@/constant'
 import scssVariables from '@/styles/variables.module.scss'
 import { getItem, setItem } from '@/utils/storage'
-import { generateColors } from '@/utils/theme'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed, shallowRef } from 'vue'
-import { useThemeStore } from './theme'
 
 export interface TagsViewItem {
   fullPath: string
@@ -20,17 +18,15 @@ interface RemoveTagsViewPayload {
 }
 
 export const useAppStore = defineStore('app', () => {
-  const themeStore = useThemeStore()
   const cachedTagsViewList = getItem<TagsViewItem[]>(TAGS_VIEW)
   const sidebarOpened = shallowRef(true)
   const language = shallowRef(getItem<string>(LANG) || 'zh')
   const tagsViewList = shallowRef<TagsViewItem[]>(
     Array.isArray(cachedTagsViewList) ? cachedTagsViewList : []
   )
-  const cssVar = computed(() => ({
-    ...(scssVariables as Record<string, string>),
-    ...generateColors(themeStore.mainColor)
-  }))
+  const cssVar = computed(
+    () => scssVariables as Readonly<Record<string, string>>
+  )
 
   function triggerSidebarOpened() {
     sidebarOpened.value = !sidebarOpened.value

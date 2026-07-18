@@ -11,6 +11,8 @@ export interface LoginResult {
 
 export interface UserInfo {
   avatar?: string
+  title?: string
+  username?: string
   permission?: {
     menus?: string[]
     points?: string[]

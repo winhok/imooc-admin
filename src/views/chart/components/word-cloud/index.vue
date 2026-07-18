@@ -7,10 +7,15 @@ import {
   useTemplateRef,
   watch
 } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { getChartWordCloud } from '@/api/chart'
-import wordCloudMask from '@/assets/wordcloud-mask.svg'
 import { useLangFetch } from '@/utils/i18n'
 
+const { t } = useI18n()
+const wordCloudMask = new URL(
+  '../../../../assets/imooc-logo.png',
+  import.meta.url
+).href
 const data = useLangFetch(getChartWordCloud, [])
 const target = useTemplateRef<HTMLElement>('chart')
 const chart = shallowRef<Chart>()
@@ -26,8 +31,8 @@ const render = async () => {
       color: 'name'
     },
     layout: {
-      fontSize: [12, 42],
-      padding: 2,
+      fontSize: [4, 80],
+      padding: 0,
       rotate: 0,
       spiral: 'rectangular',
       imageMask: wordCloudMask
@@ -58,21 +63,29 @@ onBeforeUnmount(() => chart.value?.destroy())
 </script>
 
 <template>
-  <el-card shadow="never" :body-style="{ padding: '14px 16px 0' }">
-    <h3 class="word-cloud__title">{{ $t('msg.chart.cloudChartTitle') }}</h3>
+  <el-card class="word-cloud-card" :body-style="{ padding: 0 }">
+    <h3 class="word-cloud-card__title">{{ t('msg.chart.cloudChartTitle') }}</h3>
     <div ref="chart" class="word-cloud" />
   </el-card>
 </template>
 
 <style scoped>
-.word-cloud {
-  width: 100%;
-  height: 202px;
+.word-cloud-card {
+  position: relative;
 }
 
-.word-cloud__title {
+.word-cloud-card__title {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  z-index: 1;
   margin: 0;
   color: #303133;
-  font-size: 16px;
+  font-size: 18px;
+}
+
+.word-cloud {
+  width: 100%;
+  height: 240px;
 }
 </style>

@@ -8,7 +8,7 @@ const data = useLangFetch(getChartTrend, null)
 </script>
 
 <template>
-  <el-card class="trend-card" shadow="never">
+  <el-card class="trend-card">
     <el-skeleton v-if="!data" :rows="5" animated />
     <el-row v-else :gutter="32">
       <el-col :xs="24" :md="7" :lg="6">
@@ -23,6 +23,13 @@ const data = useLangFetch(getChartTrend, null)
 
 <style scoped>
 .trend-card {
-  min-height: 286px;
+  height: 286px;
+}
+
+@media (max-width: 767px) {
+  .trend-card {
+    height: auto;
+    min-height: 286px;
+  }
 }
 </style>

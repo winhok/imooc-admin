@@ -23,7 +23,6 @@ defineProps<{
           :image="userStore.userInfo.avatar"
           height="100px"
           width="100px"
-          :hoverable="false"
         >
           <div>Hello</div>
           {{ userStore.userInfo.title }}
@@ -31,7 +30,7 @@ defineProps<{
       </div>
       <div class="box-center">
         <div class="user-name text-center">
-          {{ userStore.userInfo.name }}
+          {{ userStore.userInfo.username }}
         </div>
         <div class="user-role text-center text-muted">
           {{ userStore.userInfo.title }}
